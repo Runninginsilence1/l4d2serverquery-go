@@ -1,0 +1,9 @@
+go.sum
+*.zip
+resources/
+log/
+.idea/
+!*.go
+*.exe
+# db file
+db.sqlite3
