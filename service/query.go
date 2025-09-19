@@ -103,7 +103,9 @@ func unpackInfo(data []byte) []string {
 			sock++
 		case 7:
 			// 推测长度为2, 作用未知
-			tempUnit := int16(binary.LittleEndian.Uint16(data[sock : sock+2]))
+			tempUnit := int16(
+				binary.LittleEndian.Uint16(data[sock : sock+2]),
+			)
 			msg = append(msg, tempUnit)
 			sock += 2
 		case 3, 4, 5, 6, 15, 16:
@@ -124,7 +126,12 @@ func unpackInfo(data []byte) []string {
 	maxPlayerNum := cast.ToString(msg[4])
 	botPlayerNum := cast.ToString(msg[5])
 
-	checkStringRes = append(checkStringRes, curPlayerNum, maxPlayerNum, botPlayerNum)
+	checkStringRes = append(
+		checkStringRes,
+		curPlayerNum,
+		maxPlayerNum,
+		botPlayerNum,
+	)
 	return checkStringRes
 }
 
@@ -137,7 +144,11 @@ func checkString(data []byte, sock int) (output string, dataLen int) {
 	dataLen = len(dataRight[0])
 	//tag := fmt.Sprintf("<%ds", dataLen)
 	var newBytes = make([]byte, dataLen)
-	err := binary.Read(bytes.NewReader(data[sock:sock+dataLen]), binary.LittleEndian, newBytes)
+	err := binary.Read(
+		bytes.NewReader(data[sock:sock+dataLen]),
+		binary.LittleEndian,
+		newBytes,
+	)
 	if err != nil {
 		return "", 0
 	}
@@ -158,8 +169,22 @@ func ParseL4d2SeverInfo(data []byte) (*L4d2SeverInfo, error) {
 	return &L4d2SeverInfo{}, nil
 }
 
-func NewL4d2SeverInfo(name string, Map string, version string, onlinePlayers int, maxPlayers int, botPlayers int) *L4d2SeverInfo {
-	return &L4d2SeverInfo{Name: name, Map: Map, Version: version, OnlinePlayers: onlinePlayers, MaxPlayers: maxPlayers, BotPlayers: botPlayers}
+func NewL4d2SeverInfo(
+	name string,
+	Map string,
+	version string,
+	onlinePlayers int,
+	maxPlayers int,
+	botPlayers int,
+) *L4d2SeverInfo {
+	return &L4d2SeverInfo{
+		Name:          name,
+		Map:           Map,
+		Version:       version,
+		OnlinePlayers: onlinePlayers,
+		MaxPlayers:    maxPlayers,
+		BotPlayers:    botPlayers,
+	}
 }
 
 func Query(addr string) (L4d2SeverInfo, error) {

@@ -55,9 +55,12 @@ func Router() *gin.Engine {
 		body, _ := io.ReadAll(c.Request.Body)
 		tagIDRes := gjson.GetBytes(body, "tags").Array()
 		name := gjson.GetBytes(body, "name").String()
-		tagIDs := slice.Map(tagIDRes, func(_ int, item gjson.Result) int {
-			return int(item.Int())
-		})
+		tagIDs := slice.Map(
+			tagIDRes,
+			func(_ int, item gjson.Result) int {
+				return int(item.Int())
+			},
+		)
 		servers, err := service.QueryServers(tagIDs, name)
 		if err != nil {
 			c.String(500, err.Error())
@@ -130,7 +133,11 @@ func Router() *gin.Engine {
 		pageSize := c.DefaultQuery("pageSize", "10")
 		serverName := c.DefaultQuery("serverName", "药抗")
 
-		servers := steamquery.QueryMasterServer(serverName, cast.ToInt(page), cast.ToInt(pageSize))
+		servers := steamquery.QueryMasterServer(
+			serverName,
+			cast.ToInt(page),
+			cast.ToInt(pageSize),
+		)
 
 		masterQueryResult := map[string]any{
 			"查询时间":       time.Now().Format(time.DateTime),
@@ -195,9 +202,12 @@ func Router() *gin.Engine {
 			Seconds int    `json:"seconds"`
 		}
 
-		playerNames := slice.Map(player.Players, func(index int, item *a2s.Player) PlayerDto {
-			return PlayerDto{Name: item.Name}
-		})
+		playerNames := slice.Map(
+			player.Players,
+			func(index int, item *a2s.Player) PlayerDto {
+				return PlayerDto{Name: item.Name}
+			},
+		)
 
 		c.JSON(200, playerNames)
 	})

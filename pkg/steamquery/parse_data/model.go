@@ -25,5 +25,13 @@ type Server struct {
 }
 
 func (receiver Server) EasyInfo() string {
-	return fmt.Sprintf("%s:%d (%s) - %d/%d players - %s", receiver.IpAddress, receiver.Port, receiver.Name, receiver.CurrentPlayers, receiver.MaxPlayers, receiver.Map)
+	return fmt.Sprintf(
+		"%s:%d (%s) - %d/%d players - %s",
+		receiver.IpAddress,
+		receiver.Port,
+		receiver.Name,
+		receiver.CurrentPlayers,
+		receiver.MaxPlayers,
+		receiver.Map,
+	)
 }
