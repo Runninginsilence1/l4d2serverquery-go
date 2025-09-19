@@ -50,6 +50,7 @@ func Router() *gin.Engine {
 		c.JSON(http.StatusOK, tags)
 	})
 
+	// 获取数据库中的所有服务器信息并排序
 	r.POST("serverList/v2", func(c *gin.Context) {
 		body, _ := io.ReadAll(c.Request.Body)
 		tagIDRes := gjson.GetBytes(body, "tags").Array()
@@ -122,7 +123,8 @@ func Router() *gin.Engine {
 		c.Status(200)
 	})
 
-	// 查询可用的服务器
+	// 通过 https://www.steamserverbrowser.com/games/left-4-dead-2/asia
+	// 来查询可用的服务器信息
 	r.GET("/master_query", func(c *gin.Context) {
 		page := c.DefaultQuery("page", "1")
 		pageSize := c.DefaultQuery("pageSize", "10")

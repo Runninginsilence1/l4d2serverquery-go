@@ -5,7 +5,6 @@ import (
 	"io"
 	"net/http"
 
-	"l4d2serverquery-go/pkg/steamquery/parse_data"
 	"l4d2serverquery-go/pkg/steamquery/queryitem"
 	"l4d2serverquery-go/pkg/steamquery/steamserverbrowser"
 )
@@ -48,25 +47,4 @@ func GetData() (string, error) {
 		return "", err
 	}
 	return string(all), nil
-}
-
-func QueryData(queryItems ...queryitem.QueryItem) []parse_data.Server {
-	url := "https://api.steamserverbrowser.com/v2/games/550/servers/query/AS/1/25"
-	resp, err := http.Post(url, "application/json",
-		queryitem.BuildQueryConditions(
-			// example
-			//queryitem.NewServerNameQueryItem("芙芙"), // server name limit,
-			queryItems...,
-		),
-	)
-	if err != nil {
-		return nil
-	}
-	defer resp.Body.Close()
-	all, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil
-	}
-
-	return Servers(string(all))
 }
