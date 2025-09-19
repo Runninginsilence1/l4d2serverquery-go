@@ -10,11 +10,14 @@ require (
 	github.com/gin-contrib/cors v1.7.5
 	github.com/gin-contrib/static v1.1.5
 	github.com/gin-gonic/gin v1.10.0
+	github.com/rumblefrog/go-a2s v1.0.2
 	github.com/samber/lo v1.50.0
 	github.com/sourcegraph/conc v0.3.0
 	github.com/spf13/cast v1.7.1
 	github.com/tidwall/gjson v1.18.0
+	go.uber.org/zap v1.27.0
 	golang.org/x/sync v0.13.0
+	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/driver/postgres v1.5.11
 	gorm.io/gorm v1.25.12
@@ -58,13 +61,13 @@ require (
 	github.com/ncruces/go-strftime v0.1.9 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.3 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
-	github.com/rumblefrog/go-a2s v1.0.2 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	github.com/zclconf/go-cty v1.14.4 // indirect
 	github.com/zclconf/go-cty-yaml v1.1.0 // indirect
+	go.uber.org/multierr v1.10.0 // indirect
 	golang.org/x/arch v0.16.0 // indirect
 	golang.org/x/crypto v0.37.0 // indirect
 	golang.org/x/exp v0.0.0-20250305212735-054e65f0b394 // indirect

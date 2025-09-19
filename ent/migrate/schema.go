@@ -12,6 +12,7 @@ var (
 	FavoriteServersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "addr", Type: field.TypeString, Unique: true},
+		{Name: "name", Type: field.TypeString, Nullable: true},
 		{Name: "desc", Type: field.TypeString, Nullable: true},
 		{Name: "last_query_time", Type: field.TypeTime, Nullable: true},
 		{Name: "rank", Type: field.TypeInt, Default: 7},
@@ -25,6 +26,7 @@ var (
 	// TagsColumns holds the columns for the "tags" table.
 	TagsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "description", Type: field.TypeString, Nullable: true},
 		{Name: "name", Type: field.TypeString, Unique: true},
 		{Name: "rank", Type: field.TypeInt},
 	}

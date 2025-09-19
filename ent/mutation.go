@@ -36,6 +36,7 @@ type FavoriteServerMutation struct {
 	typ             string
 	id              *int
 	addr            *string
+	name            *string
 	desc            *string
 	last_query_time *time.Time
 	rank            *int
@@ -181,6 +182,55 @@ func (m *FavoriteServerMutation) OldAddr(ctx context.Context) (v string, err err
 // ResetAddr resets all changes to the "addr" field.
 func (m *FavoriteServerMutation) ResetAddr() {
 	m.addr = nil
+}
+
+// SetName sets the "name" field.
+func (m *FavoriteServerMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the value of the "name" field in the mutation.
+func (m *FavoriteServerMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old "name" field's value of the FavoriteServer entity.
+// If the FavoriteServer object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *FavoriteServerMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ClearName clears the value of the "name" field.
+func (m *FavoriteServerMutation) ClearName() {
+	m.name = nil
+	m.clearedFields[favoriteserver.FieldName] = struct{}{}
+}
+
+// NameCleared returns if the "name" field was cleared in this mutation.
+func (m *FavoriteServerMutation) NameCleared() bool {
+	_, ok := m.clearedFields[favoriteserver.FieldName]
+	return ok
+}
+
+// ResetName resets all changes to the "name" field.
+func (m *FavoriteServerMutation) ResetName() {
+	m.name = nil
+	delete(m.clearedFields, favoriteserver.FieldName)
 }
 
 // SetDesc sets the "desc" field.
@@ -425,9 +475,12 @@ func (m *FavoriteServerMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *FavoriteServerMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 5)
 	if m.addr != nil {
 		fields = append(fields, favoriteserver.FieldAddr)
+	}
+	if m.name != nil {
+		fields = append(fields, favoriteserver.FieldName)
 	}
 	if m.desc != nil {
 		fields = append(fields, favoriteserver.FieldDesc)
@@ -448,6 +501,8 @@ func (m *FavoriteServerMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case favoriteserver.FieldAddr:
 		return m.Addr()
+	case favoriteserver.FieldName:
+		return m.Name()
 	case favoriteserver.FieldDesc:
 		return m.Desc()
 	case favoriteserver.FieldLastQueryTime:
@@ -465,6 +520,8 @@ func (m *FavoriteServerMutation) OldField(ctx context.Context, name string) (ent
 	switch name {
 	case favoriteserver.FieldAddr:
 		return m.OldAddr(ctx)
+	case favoriteserver.FieldName:
+		return m.OldName(ctx)
 	case favoriteserver.FieldDesc:
 		return m.OldDesc(ctx)
 	case favoriteserver.FieldLastQueryTime:
@@ -486,6 +543,13 @@ func (m *FavoriteServerMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetAddr(v)
+		return nil
+	case favoriteserver.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
 		return nil
 	case favoriteserver.FieldDesc:
 		v, ok := value.(string)
@@ -553,6 +617,9 @@ func (m *FavoriteServerMutation) AddField(name string, value ent.Value) error {
 // mutation.
 func (m *FavoriteServerMutation) ClearedFields() []string {
 	var fields []string
+	if m.FieldCleared(favoriteserver.FieldName) {
+		fields = append(fields, favoriteserver.FieldName)
+	}
 	if m.FieldCleared(favoriteserver.FieldDesc) {
 		fields = append(fields, favoriteserver.FieldDesc)
 	}
@@ -573,6 +640,9 @@ func (m *FavoriteServerMutation) FieldCleared(name string) bool {
 // error if the field is not defined in the schema.
 func (m *FavoriteServerMutation) ClearField(name string) error {
 	switch name {
+	case favoriteserver.FieldName:
+		m.ClearName()
+		return nil
 	case favoriteserver.FieldDesc:
 		m.ClearDesc()
 		return nil
@@ -589,6 +659,9 @@ func (m *FavoriteServerMutation) ResetField(name string) error {
 	switch name {
 	case favoriteserver.FieldAddr:
 		m.ResetAddr()
+		return nil
+	case favoriteserver.FieldName:
+		m.ResetName()
 		return nil
 	case favoriteserver.FieldDesc:
 		m.ResetDesc()
@@ -693,6 +766,7 @@ type TagMutation struct {
 	op             Op
 	typ            string
 	id             *int
+	description    *string
 	name           *string
 	rank           *int
 	addrank        *int
@@ -801,6 +875,55 @@ func (m *TagMutation) IDs(ctx context.Context) ([]int, error) {
 	default:
 		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
 	}
+}
+
+// SetDescription sets the "description" field.
+func (m *TagMutation) SetDescription(s string) {
+	m.description = &s
+}
+
+// Description returns the value of the "description" field in the mutation.
+func (m *TagMutation) Description() (r string, exists bool) {
+	v := m.description
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDescription returns the old "description" field's value of the Tag entity.
+// If the Tag object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TagMutation) OldDescription(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDescription is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDescription requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDescription: %w", err)
+	}
+	return oldValue.Description, nil
+}
+
+// ClearDescription clears the value of the "description" field.
+func (m *TagMutation) ClearDescription() {
+	m.description = nil
+	m.clearedFields[tag.FieldDescription] = struct{}{}
+}
+
+// DescriptionCleared returns if the "description" field was cleared in this mutation.
+func (m *TagMutation) DescriptionCleared() bool {
+	_, ok := m.clearedFields[tag.FieldDescription]
+	return ok
+}
+
+// ResetDescription resets all changes to the "description" field.
+func (m *TagMutation) ResetDescription() {
+	m.description = nil
+	delete(m.clearedFields, tag.FieldDescription)
 }
 
 // SetName sets the "name" field.
@@ -983,7 +1106,10 @@ func (m *TagMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *TagMutation) Fields() []string {
-	fields := make([]string, 0, 2)
+	fields := make([]string, 0, 3)
+	if m.description != nil {
+		fields = append(fields, tag.FieldDescription)
+	}
 	if m.name != nil {
 		fields = append(fields, tag.FieldName)
 	}
@@ -998,6 +1124,8 @@ func (m *TagMutation) Fields() []string {
 // schema.
 func (m *TagMutation) Field(name string) (ent.Value, bool) {
 	switch name {
+	case tag.FieldDescription:
+		return m.Description()
 	case tag.FieldName:
 		return m.Name()
 	case tag.FieldRank:
@@ -1011,6 +1139,8 @@ func (m *TagMutation) Field(name string) (ent.Value, bool) {
 // database failed.
 func (m *TagMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
 	switch name {
+	case tag.FieldDescription:
+		return m.OldDescription(ctx)
 	case tag.FieldName:
 		return m.OldName(ctx)
 	case tag.FieldRank:
@@ -1024,6 +1154,13 @@ func (m *TagMutation) OldField(ctx context.Context, name string) (ent.Value, err
 // type.
 func (m *TagMutation) SetField(name string, value ent.Value) error {
 	switch name {
+	case tag.FieldDescription:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDescription(v)
+		return nil
 	case tag.FieldName:
 		v, ok := value.(string)
 		if !ok {
@@ -1082,7 +1219,11 @@ func (m *TagMutation) AddField(name string, value ent.Value) error {
 // ClearedFields returns all nullable fields that were cleared during this
 // mutation.
 func (m *TagMutation) ClearedFields() []string {
-	return nil
+	var fields []string
+	if m.FieldCleared(tag.FieldDescription) {
+		fields = append(fields, tag.FieldDescription)
+	}
+	return fields
 }
 
 // FieldCleared returns a boolean indicating if a field with the given name was
@@ -1095,6 +1236,11 @@ func (m *TagMutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *TagMutation) ClearField(name string) error {
+	switch name {
+	case tag.FieldDescription:
+		m.ClearDescription()
+		return nil
+	}
 	return fmt.Errorf("unknown Tag nullable field %s", name)
 }
 
@@ -1102,6 +1248,9 @@ func (m *TagMutation) ClearField(name string) error {
 // It returns an error if the field is not defined in the schema.
 func (m *TagMutation) ResetField(name string) error {
 	switch name {
+	case tag.FieldDescription:
+		m.ResetDescription()
+		return nil
 	case tag.FieldName:
 		m.ResetName()
 		return nil

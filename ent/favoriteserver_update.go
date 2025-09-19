@@ -43,6 +43,26 @@ func (fsu *FavoriteServerUpdate) SetNillableAddr(s *string) *FavoriteServerUpdat
 	return fsu
 }
 
+// SetName sets the "name" field.
+func (fsu *FavoriteServerUpdate) SetName(s string) *FavoriteServerUpdate {
+	fsu.mutation.SetName(s)
+	return fsu
+}
+
+// SetNillableName sets the "name" field if the given value is not nil.
+func (fsu *FavoriteServerUpdate) SetNillableName(s *string) *FavoriteServerUpdate {
+	if s != nil {
+		fsu.SetName(*s)
+	}
+	return fsu
+}
+
+// ClearName clears the value of the "name" field.
+func (fsu *FavoriteServerUpdate) ClearName() *FavoriteServerUpdate {
+	fsu.mutation.ClearName()
+	return fsu
+}
+
 // SetDesc sets the "desc" field.
 func (fsu *FavoriteServerUpdate) SetDesc(s string) *FavoriteServerUpdate {
 	fsu.mutation.SetDesc(s)
@@ -184,6 +204,12 @@ func (fsu *FavoriteServerUpdate) sqlSave(ctx context.Context) (n int, err error)
 	if value, ok := fsu.mutation.Addr(); ok {
 		_spec.SetField(favoriteserver.FieldAddr, field.TypeString, value)
 	}
+	if value, ok := fsu.mutation.Name(); ok {
+		_spec.SetField(favoriteserver.FieldName, field.TypeString, value)
+	}
+	if fsu.mutation.NameCleared() {
+		_spec.ClearField(favoriteserver.FieldName, field.TypeString)
+	}
 	if value, ok := fsu.mutation.Desc(); ok {
 		_spec.SetField(favoriteserver.FieldDesc, field.TypeString, value)
 	}
@@ -278,6 +304,26 @@ func (fsuo *FavoriteServerUpdateOne) SetNillableAddr(s *string) *FavoriteServerU
 	if s != nil {
 		fsuo.SetAddr(*s)
 	}
+	return fsuo
+}
+
+// SetName sets the "name" field.
+func (fsuo *FavoriteServerUpdateOne) SetName(s string) *FavoriteServerUpdateOne {
+	fsuo.mutation.SetName(s)
+	return fsuo
+}
+
+// SetNillableName sets the "name" field if the given value is not nil.
+func (fsuo *FavoriteServerUpdateOne) SetNillableName(s *string) *FavoriteServerUpdateOne {
+	if s != nil {
+		fsuo.SetName(*s)
+	}
+	return fsuo
+}
+
+// ClearName clears the value of the "name" field.
+func (fsuo *FavoriteServerUpdateOne) ClearName() *FavoriteServerUpdateOne {
+	fsuo.mutation.ClearName()
 	return fsuo
 }
 
@@ -451,6 +497,12 @@ func (fsuo *FavoriteServerUpdateOne) sqlSave(ctx context.Context) (_node *Favori
 	}
 	if value, ok := fsuo.mutation.Addr(); ok {
 		_spec.SetField(favoriteserver.FieldAddr, field.TypeString, value)
+	}
+	if value, ok := fsuo.mutation.Name(); ok {
+		_spec.SetField(favoriteserver.FieldName, field.TypeString, value)
+	}
+	if fsuo.mutation.NameCleared() {
+		_spec.ClearField(favoriteserver.FieldName, field.TypeString)
 	}
 	if value, ok := fsuo.mutation.Desc(); ok {
 		_spec.SetField(favoriteserver.FieldDesc, field.TypeString, value)

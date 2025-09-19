@@ -16,6 +16,7 @@ func (FavoriteServer) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("addr").
 			Unique(),
+		field.String("name").Optional(),
 		field.String("desc").Optional(),
 		//field.Time("created_at").Default(time.Now()),
 		field.Time("last_query_time").Optional(), // 最后查询时间

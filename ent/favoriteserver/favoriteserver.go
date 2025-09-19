@@ -14,6 +14,8 @@ const (
 	FieldID = "id"
 	// FieldAddr holds the string denoting the addr field in the database.
 	FieldAddr = "addr"
+	// FieldName holds the string denoting the name field in the database.
+	FieldName = "name"
 	// FieldDesc holds the string denoting the desc field in the database.
 	FieldDesc = "desc"
 	// FieldLastQueryTime holds the string denoting the last_query_time field in the database.
@@ -35,6 +37,7 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldAddr,
+	FieldName,
 	FieldDesc,
 	FieldLastQueryTime,
 	FieldRank,
@@ -72,6 +75,11 @@ func ByID(opts ...sql.OrderTermOption) OrderOption {
 // ByAddr orders the results by the addr field.
 func ByAddr(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAddr, opts...).ToFunc()
+}
+
+// ByName orders the results by the name field.
+func ByName(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldName, opts...).ToFunc()
 }
 
 // ByDesc orders the results by the desc field.

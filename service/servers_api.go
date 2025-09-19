@@ -13,7 +13,9 @@ import (
 	"l4d2serverquery-go/dto"
 	"l4d2serverquery-go/ent"
 	"l4d2serverquery-go/ent/favoriteserver"
+	"l4d2serverquery-go/ent/predicate"
 	"l4d2serverquery-go/ent/tag"
+	"l4d2serverquery-go/logger"
 	"l4d2serverquery-go/pkg/steamquery/parse_data"
 	"l4d2serverquery-go/singleflight"
 )
@@ -80,8 +82,8 @@ func PatchServer(id int, item dto.Server) error {
 	return err
 }
 
-func QueryServers(tagIds []int) ([]dto.Server, error) {
-
+func QueryServers(tagIds []int, name string) ([]dto.Server, error) {
+	logger.Log.Info("QueryServers arg:", "name", name)
 	result, err, _ := singleflight.Sf().Do("servers", func() (interface{}, error) {
 		var dtos []dto.Server
 		wg := conc.NewWaitGroup()
@@ -89,11 +91,22 @@ func QueryServers(tagIds []int) ([]dto.Server, error) {
 		client := Client()
 		ctx := context.Background()
 
+		serverCond := []predicate.FavoriteServer{favoriteserver.NameContainsFold(name)}
+
+		if len(tagIds) > 0 {
+			serverCond = append(serverCond, favoriteserver.HasTagsWith(tag.IDIn(tagIds...)))
+		}
+
 		// 查询所有在tagIds中的服务器
 		all, err := client.FavoriteServer.Query().Where(
-			favoriteserver.HasTagsWith(tag.IDIn(tagIds...))).
+			serverCond...,
+		).
 			WithTags().
 			All(ctx)
+
+		if err != nil {
+			return nil, err
+		}
 
 		fmt.Println()
 
@@ -101,12 +114,12 @@ func QueryServers(tagIds []int) ([]dto.Server, error) {
 			return item.Addr
 		})
 
-		if len(tagIds) == 0 {
-			all, err = client.FavoriteServer.Query().All(ctx)
-			if err != nil {
-				return nil, err
-			}
-		}
+		//if len(tagIds) == 0 {
+		//	all, err = client.FavoriteServer.Query().All(ctx)
+		//	if err != nil {
+		//		return nil, err
+		//	}
+		//}
 
 		for _, server := range all {
 			wg.Go(func() {
@@ -114,8 +127,13 @@ func QueryServers(tagIds []int) ([]dto.Server, error) {
 				if err != nil {
 					return
 				}
-				dto := newServerDto(server, info)
-				dtos = append(dtos, dto)
+				_, err = client.FavoriteServer.UpdateOneID(server.ID).SetName(info.Name).Save(ctx)
+				if err != nil {
+					logger.Log.Error("更新服务器名称失败", err)
+					return
+				}
+				d := newServerDto(server, info)
+				dtos = append(dtos, d)
 			})
 		}
 

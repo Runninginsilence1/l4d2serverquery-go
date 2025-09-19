@@ -53,10 +53,11 @@ func Router() *gin.Engine {
 	r.POST("serverList/v2", func(c *gin.Context) {
 		body, _ := io.ReadAll(c.Request.Body)
 		tagIDRes := gjson.GetBytes(body, "tags").Array()
+		name := gjson.GetBytes(body, "name").String()
 		tagIDs := slice.Map(tagIDRes, func(_ int, item gjson.Result) int {
 			return int(item.Int())
 		})
-		servers, err := service.QueryServers(tagIDs)
+		servers, err := service.QueryServers(tagIDs, name)
 		if err != nil {
 			c.String(500, err.Error())
 			return

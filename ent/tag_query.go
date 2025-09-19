@@ -299,12 +299,12 @@ func (tq *TagQuery) WithServers(opts ...func(*FavoriteServerQuery)) *TagQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		Description string `json:"description,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Tag.Query().
-//		GroupBy(tag.FieldName).
+//		GroupBy(tag.FieldDescription).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 func (tq *TagQuery) GroupBy(field string, fields ...string) *TagGroupBy {
@@ -322,11 +322,11 @@ func (tq *TagQuery) GroupBy(field string, fields ...string) *TagGroupBy {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		Description string `json:"description,omitempty"`
 //	}
 //
 //	client.Tag.Query().
-//		Select(tag.FieldName).
+//		Select(tag.FieldDescription).
 //		Scan(ctx, &v)
 func (tq *TagQuery) Select(fields ...string) *TagSelect {
 	tq.ctx.Fields = append(tq.ctx.Fields, fields...)

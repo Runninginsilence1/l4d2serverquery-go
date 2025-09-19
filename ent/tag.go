@@ -16,6 +16,8 @@ type Tag struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
+	// Description holds the value of the "description" field.
+	Description string `json:"description,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
 	// Rank holds the value of the "rank" field.
@@ -51,7 +53,7 @@ func (*Tag) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case tag.FieldID, tag.FieldRank:
 			values[i] = new(sql.NullInt64)
-		case tag.FieldName:
+		case tag.FieldDescription, tag.FieldName:
 			values[i] = new(sql.NullString)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -74,6 +76,12 @@ func (t *Tag) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
 			t.ID = int(value.Int64)
+		case tag.FieldDescription:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field description", values[i])
+			} else if value.Valid {
+				t.Description = value.String
+			}
 		case tag.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
@@ -127,6 +135,9 @@ func (t *Tag) String() string {
 	var builder strings.Builder
 	builder.WriteString("Tag(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", t.ID))
+	builder.WriteString("description=")
+	builder.WriteString(t.Description)
+	builder.WriteString(", ")
 	builder.WriteString("name=")
 	builder.WriteString(t.Name)
 	builder.WriteString(", ")

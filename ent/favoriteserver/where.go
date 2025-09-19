@@ -60,6 +60,11 @@ func Addr(v string) predicate.FavoriteServer {
 	return predicate.FavoriteServer(sql.FieldEQ(FieldAddr, v))
 }
 
+// Name applies equality check predicate on the "name" field. It's identical to NameEQ.
+func Name(v string) predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldEQ(FieldName, v))
+}
+
 // Desc applies equality check predicate on the "desc" field. It's identical to DescEQ.
 func Desc(v string) predicate.FavoriteServer {
 	return predicate.FavoriteServer(sql.FieldEQ(FieldDesc, v))
@@ -138,6 +143,81 @@ func AddrEqualFold(v string) predicate.FavoriteServer {
 // AddrContainsFold applies the ContainsFold predicate on the "addr" field.
 func AddrContainsFold(v string) predicate.FavoriteServer {
 	return predicate.FavoriteServer(sql.FieldContainsFold(FieldAddr, v))
+}
+
+// NameEQ applies the EQ predicate on the "name" field.
+func NameEQ(v string) predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldEQ(FieldName, v))
+}
+
+// NameNEQ applies the NEQ predicate on the "name" field.
+func NameNEQ(v string) predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldNEQ(FieldName, v))
+}
+
+// NameIn applies the In predicate on the "name" field.
+func NameIn(vs ...string) predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldIn(FieldName, vs...))
+}
+
+// NameNotIn applies the NotIn predicate on the "name" field.
+func NameNotIn(vs ...string) predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldNotIn(FieldName, vs...))
+}
+
+// NameGT applies the GT predicate on the "name" field.
+func NameGT(v string) predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldGT(FieldName, v))
+}
+
+// NameGTE applies the GTE predicate on the "name" field.
+func NameGTE(v string) predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldGTE(FieldName, v))
+}
+
+// NameLT applies the LT predicate on the "name" field.
+func NameLT(v string) predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldLT(FieldName, v))
+}
+
+// NameLTE applies the LTE predicate on the "name" field.
+func NameLTE(v string) predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldLTE(FieldName, v))
+}
+
+// NameContains applies the Contains predicate on the "name" field.
+func NameContains(v string) predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldContains(FieldName, v))
+}
+
+// NameHasPrefix applies the HasPrefix predicate on the "name" field.
+func NameHasPrefix(v string) predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldHasPrefix(FieldName, v))
+}
+
+// NameHasSuffix applies the HasSuffix predicate on the "name" field.
+func NameHasSuffix(v string) predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldHasSuffix(FieldName, v))
+}
+
+// NameIsNil applies the IsNil predicate on the "name" field.
+func NameIsNil() predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldIsNull(FieldName))
+}
+
+// NameNotNil applies the NotNil predicate on the "name" field.
+func NameNotNil() predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldNotNull(FieldName))
+}
+
+// NameEqualFold applies the EqualFold predicate on the "name" field.
+func NameEqualFold(v string) predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldEqualFold(FieldName, v))
+}
+
+// NameContainsFold applies the ContainsFold predicate on the "name" field.
+func NameContainsFold(v string) predicate.FavoriteServer {
+	return predicate.FavoriteServer(sql.FieldContainsFold(FieldName, v))
 }
 
 // DescEQ applies the EQ predicate on the "desc" field.

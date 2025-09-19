@@ -20,6 +20,20 @@ type TagCreate struct {
 	hooks    []Hook
 }
 
+// SetDescription sets the "description" field.
+func (tc *TagCreate) SetDescription(s string) *TagCreate {
+	tc.mutation.SetDescription(s)
+	return tc
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (tc *TagCreate) SetNillableDescription(s *string) *TagCreate {
+	if s != nil {
+		tc.SetDescription(*s)
+	}
+	return tc
+}
+
 // SetName sets the "name" field.
 func (tc *TagCreate) SetName(s string) *TagCreate {
 	tc.mutation.SetName(s)
@@ -113,6 +127,10 @@ func (tc *TagCreate) createSpec() (*Tag, *sqlgraph.CreateSpec) {
 		_node = &Tag{config: tc.config}
 		_spec = sqlgraph.NewCreateSpec(tag.Table, sqlgraph.NewFieldSpec(tag.FieldID, field.TypeInt))
 	)
+	if value, ok := tc.mutation.Description(); ok {
+		_spec.SetField(tag.FieldDescription, field.TypeString, value)
+		_node.Description = value
+	}
 	if value, ok := tc.mutation.Name(); ok {
 		_spec.SetField(tag.FieldName, field.TypeString, value)
 		_node.Name = value

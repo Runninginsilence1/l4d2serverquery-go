@@ -27,6 +27,20 @@ func (fsc *FavoriteServerCreate) SetAddr(s string) *FavoriteServerCreate {
 	return fsc
 }
 
+// SetName sets the "name" field.
+func (fsc *FavoriteServerCreate) SetName(s string) *FavoriteServerCreate {
+	fsc.mutation.SetName(s)
+	return fsc
+}
+
+// SetNillableName sets the "name" field if the given value is not nil.
+func (fsc *FavoriteServerCreate) SetNillableName(s *string) *FavoriteServerCreate {
+	if s != nil {
+		fsc.SetName(*s)
+	}
+	return fsc
+}
+
 // SetDesc sets the "desc" field.
 func (fsc *FavoriteServerCreate) SetDesc(s string) *FavoriteServerCreate {
 	fsc.mutation.SetDesc(s)
@@ -162,6 +176,10 @@ func (fsc *FavoriteServerCreate) createSpec() (*FavoriteServer, *sqlgraph.Create
 	if value, ok := fsc.mutation.Addr(); ok {
 		_spec.SetField(favoriteserver.FieldAddr, field.TypeString, value)
 		_node.Addr = value
+	}
+	if value, ok := fsc.mutation.Name(); ok {
+		_spec.SetField(favoriteserver.FieldName, field.TypeString, value)
+		_node.Name = value
 	}
 	if value, ok := fsc.mutation.Desc(); ok {
 		_spec.SetField(favoriteserver.FieldDesc, field.TypeString, value)

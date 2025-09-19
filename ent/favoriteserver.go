@@ -19,6 +19,8 @@ type FavoriteServer struct {
 	ID int `json:"id,omitempty"`
 	// Addr holds the value of the "addr" field.
 	Addr string `json:"addr,omitempty"`
+	// Name holds the value of the "name" field.
+	Name string `json:"name,omitempty"`
 	// Desc holds the value of the "desc" field.
 	Desc string `json:"desc,omitempty"`
 	// LastQueryTime holds the value of the "last_query_time" field.
@@ -56,7 +58,7 @@ func (*FavoriteServer) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case favoriteserver.FieldID, favoriteserver.FieldRank:
 			values[i] = new(sql.NullInt64)
-		case favoriteserver.FieldAddr, favoriteserver.FieldDesc:
+		case favoriteserver.FieldAddr, favoriteserver.FieldName, favoriteserver.FieldDesc:
 			values[i] = new(sql.NullString)
 		case favoriteserver.FieldLastQueryTime:
 			values[i] = new(sql.NullTime)
@@ -86,6 +88,12 @@ func (fs *FavoriteServer) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field addr", values[i])
 			} else if value.Valid {
 				fs.Addr = value.String
+			}
+		case favoriteserver.FieldName:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field name", values[i])
+			} else if value.Valid {
+				fs.Name = value.String
 			}
 		case favoriteserver.FieldDesc:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -148,6 +156,9 @@ func (fs *FavoriteServer) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", fs.ID))
 	builder.WriteString("addr=")
 	builder.WriteString(fs.Addr)
+	builder.WriteString(", ")
+	builder.WriteString("name=")
+	builder.WriteString(fs.Name)
 	builder.WriteString(", ")
 	builder.WriteString("desc=")
 	builder.WriteString(fs.Desc)

@@ -28,6 +28,26 @@ func (tu *TagUpdate) Where(ps ...predicate.Tag) *TagUpdate {
 	return tu
 }
 
+// SetDescription sets the "description" field.
+func (tu *TagUpdate) SetDescription(s string) *TagUpdate {
+	tu.mutation.SetDescription(s)
+	return tu
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (tu *TagUpdate) SetNillableDescription(s *string) *TagUpdate {
+	if s != nil {
+		tu.SetDescription(*s)
+	}
+	return tu
+}
+
+// ClearDescription clears the value of the "description" field.
+func (tu *TagUpdate) ClearDescription() *TagUpdate {
+	tu.mutation.ClearDescription()
+	return tu
+}
+
 // SetName sets the "name" field.
 func (tu *TagUpdate) SetName(s string) *TagUpdate {
 	tu.mutation.SetName(s)
@@ -140,6 +160,12 @@ func (tu *TagUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := tu.mutation.Description(); ok {
+		_spec.SetField(tag.FieldDescription, field.TypeString, value)
+	}
+	if tu.mutation.DescriptionCleared() {
+		_spec.ClearField(tag.FieldDescription, field.TypeString)
+	}
 	if value, ok := tu.mutation.Name(); ok {
 		_spec.SetField(tag.FieldName, field.TypeString, value)
 	}
@@ -212,6 +238,26 @@ type TagUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *TagMutation
+}
+
+// SetDescription sets the "description" field.
+func (tuo *TagUpdateOne) SetDescription(s string) *TagUpdateOne {
+	tuo.mutation.SetDescription(s)
+	return tuo
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (tuo *TagUpdateOne) SetNillableDescription(s *string) *TagUpdateOne {
+	if s != nil {
+		tuo.SetDescription(*s)
+	}
+	return tuo
+}
+
+// ClearDescription clears the value of the "description" field.
+func (tuo *TagUpdateOne) ClearDescription() *TagUpdateOne {
+	tuo.mutation.ClearDescription()
+	return tuo
 }
 
 // SetName sets the "name" field.
@@ -355,6 +401,12 @@ func (tuo *TagUpdateOne) sqlSave(ctx context.Context) (_node *Tag, err error) {
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := tuo.mutation.Description(); ok {
+		_spec.SetField(tag.FieldDescription, field.TypeString, value)
+	}
+	if tuo.mutation.DescriptionCleared() {
+		_spec.ClearField(tag.FieldDescription, field.TypeString)
 	}
 	if value, ok := tuo.mutation.Name(); ok {
 		_spec.SetField(tag.FieldName, field.TypeString, value)

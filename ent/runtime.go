@@ -14,7 +14,7 @@ func init() {
 	favoriteserverFields := schema.FavoriteServer{}.Fields()
 	_ = favoriteserverFields
 	// favoriteserverDescRank is the schema descriptor for rank field.
-	favoriteserverDescRank := favoriteserverFields[3].Descriptor()
+	favoriteserverDescRank := favoriteserverFields[4].Descriptor()
 	// favoriteserver.DefaultRank holds the default value on creation for the rank field.
 	favoriteserver.DefaultRank = favoriteserverDescRank.Default.(int)
 }
