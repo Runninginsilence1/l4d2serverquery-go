@@ -7,17 +7,16 @@ import (
 	"net/http"
 	"time"
 
+	"l4d2serverquery-go/dto"
+	"l4d2serverquery-go/pkg/steamquery"
+
 	"github.com/duke-git/lancet/v2/formatter"
 	"github.com/duke-git/lancet/v2/slice"
 	"github.com/gin-contrib/cors"
-	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/rumblefrog/go-a2s"
 	"github.com/spf13/cast"
 	"github.com/tidwall/gjson"
-	"l4d2serverquery-go/dto"
-	"l4d2serverquery-go/pkg/steamquery"
-	"l4d2serverquery-go/resources"
 
 	"l4d2serverquery-go/service"
 )
@@ -28,12 +27,7 @@ func Router() *gin.Engine {
 
 	r.Use(cors.Default())
 
-	// 前端是单页面不存在路由跳转
-	fs, err := static.EmbedFolder(resources.UiFs, "dist")
-	if err != nil {
-		panic(err)
-	}
-	r.Use(static.Serve("/", fs))
+	setUI(r)
 
 	// api 接口
 
