@@ -6,10 +6,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/duke-git/lancet/v2/mathutil"
-	"github.com/duke-git/lancet/v2/slice"
-	"github.com/samber/lo"
-	"github.com/sourcegraph/conc"
 	"l4d2serverquery-go/dto"
 	"l4d2serverquery-go/ent"
 	"l4d2serverquery-go/ent/favoriteserver"
@@ -18,6 +14,11 @@ import (
 	"l4d2serverquery-go/logger"
 	"l4d2serverquery-go/pkg/steamquery/parse_data"
 	"l4d2serverquery-go/singleflight"
+
+	"github.com/duke-git/lancet/v2/mathutil"
+	"github.com/duke-git/lancet/v2/slice"
+	"github.com/samber/lo"
+	"github.com/sourcegraph/conc"
 )
 
 func AddServer(addr string) error {
@@ -91,7 +92,13 @@ func QueryServers(tagIds []int, name string) ([]dto.Server, error) {
 		client := Client()
 		ctx := context.Background()
 
-		serverCond := []predicate.FavoriteServer{favoriteserver.NameContainsFold(name)}
+		name = strings.TrimSpace(name)
+
+		serverCond := []predicate.FavoriteServer{}
+
+		if name != "" {
+			serverCond = append(serverCond, favoriteserver.NameContainsFold(name))
+		}
 
 		if len(tagIds) > 0 {
 			serverCond = append(serverCond, favoriteserver.HasTagsWith(tag.IDIn(tagIds...)))
@@ -108,7 +115,7 @@ func QueryServers(tagIds []int, name string) ([]dto.Server, error) {
 			return nil, err
 		}
 
-		fmt.Println()
+		fmt.Printf("共查询到%v个结果! 即将对他们进行测试连接...\n", len(all))
 
 		all = slice.UniqueBy(all, func(item *ent.FavoriteServer) string {
 			return item.Addr

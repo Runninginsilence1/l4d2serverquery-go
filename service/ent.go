@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"sync"
 
@@ -16,7 +17,9 @@ func Client() *ent.Client {
 	once.Do(func() {
 		sqlite_driver.Import()
 		var err error
-		_client, err = ent.Open("sqlite3", "file:db.sqlite3?cache=shared&_fk=1")
+		dataSourceName := fmt.Sprintf("file:%s?cache=shared&_fk=1", dbPath)
+		fmt.Println("使用的数据库文件路径为：", dbPath)
+		_client, err = ent.Open("sqlite3", dataSourceName)
 		if err != nil {
 			log.Fatalf("failed opening connection to sqlite: %v", err)
 		}
