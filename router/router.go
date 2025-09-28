@@ -22,7 +22,7 @@ import (
 )
 
 func Router() *gin.Engine {
-	gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.DebugMode)
 	r := gin.Default()
 
 	r.Use(cors.Default())
