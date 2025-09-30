@@ -169,6 +169,38 @@ func QueryServers(tagIds []int, name string) ([]dto.Server, error) {
 	return result.([]dto.Server), err
 }
 
+func QuerySingleServer(serverID int) (any, error) {
+	logger.Log.Info("single server id:", serverID)
+	result, err, _ := singleflight.Sf().Do("servers", func() (interface{}, error) {
+		client := Client()
+		ctx := context.Background()
+
+		server, err := client.FavoriteServer.Query().Where(favoriteserver.ID(serverID)).Only(ctx)
+
+		if err != nil {
+			return nil, err
+		}
+
+		fmt.Println("成功查询到指定ID的服务器")
+
+		info, err := Query(server.Addr)
+		if err != nil {
+			return nil, err
+		}
+		_, err = client.FavoriteServer.UpdateOneID(server.ID).SetName(info.Name).Save(ctx)
+		if err != nil {
+			logger.Log.Error("更新服务器名称失败", err)
+			return nil, err
+		}
+
+		d := newServerDto(server, info)
+
+		return d, nil
+	})
+
+	return result, err
+}
+
 func newServerDto(item *ent.FavoriteServer, info L4d2SeverInfo) dto.Server {
 	var r dto.Server
 	r.ID = item.ID

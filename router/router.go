@@ -64,6 +64,17 @@ func Router() *gin.Engine {
 		c.JSON(http.StatusOK, servers)
 	})
 
+	r.GET("/singleServer/:id", func(c *gin.Context) {
+		id := cast.ToInt(c.Param("id"))
+
+		resp, err := service.QuerySingleServer(id)
+		if err != nil {
+			c.String(500, err.Error())
+			return
+		}
+		c.JSON(http.StatusOK, resp)
+	})
+
 	// 更新服务器的最后连接时间
 	r.GET("lastCopyTimeUpdate/:id", func(c *gin.Context) {
 		id := cast.ToInt(c.Param("id"))
