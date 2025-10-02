@@ -6,11 +6,15 @@ import (
 	"log"
 
 	"l4d2serverquery-go/router"
+	"l4d2serverquery-go/service"
 )
 
 func main() {
 	port := flag.Int("port", 44316, "Port to run the server on")
 	flag.Parse()
+
+	service.InitClient()
+
 	if err := webServer(*port); err != nil {
 		log.Fatal(err)
 	}
