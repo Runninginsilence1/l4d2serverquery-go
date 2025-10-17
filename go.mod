@@ -26,6 +26,8 @@ require (
 
 require (
 	ariga.io/atlas v0.31.1-0.20250212144724-069be8033e83 // indirect
+	github.com/StarsiegePlayers/darkstar-query-go v1.2.0 // indirect
+	github.com/StarsiegePlayers/darkstar-query-go/v2 v2.2.0 // indirect
 	github.com/agext/levenshtein v1.2.1 // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
 	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect

@@ -31,44 +31,44 @@ type FavoriteServerQuery struct {
 }
 
 // Where adds a new predicate for the FavoriteServerQuery builder.
-func (fsq *FavoriteServerQuery) Where(ps ...predicate.FavoriteServer) *FavoriteServerQuery {
-	fsq.predicates = append(fsq.predicates, ps...)
-	return fsq
+func (_q *FavoriteServerQuery) Where(ps ...predicate.FavoriteServer) *FavoriteServerQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (fsq *FavoriteServerQuery) Limit(limit int) *FavoriteServerQuery {
-	fsq.ctx.Limit = &limit
-	return fsq
+func (_q *FavoriteServerQuery) Limit(limit int) *FavoriteServerQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (fsq *FavoriteServerQuery) Offset(offset int) *FavoriteServerQuery {
-	fsq.ctx.Offset = &offset
-	return fsq
+func (_q *FavoriteServerQuery) Offset(offset int) *FavoriteServerQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (fsq *FavoriteServerQuery) Unique(unique bool) *FavoriteServerQuery {
-	fsq.ctx.Unique = &unique
-	return fsq
+func (_q *FavoriteServerQuery) Unique(unique bool) *FavoriteServerQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (fsq *FavoriteServerQuery) Order(o ...favoriteserver.OrderOption) *FavoriteServerQuery {
-	fsq.order = append(fsq.order, o...)
-	return fsq
+func (_q *FavoriteServerQuery) Order(o ...favoriteserver.OrderOption) *FavoriteServerQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryTags chains the current query on the "tags" edge.
-func (fsq *FavoriteServerQuery) QueryTags() *TagQuery {
-	query := (&TagClient{config: fsq.config}).Query()
+func (_q *FavoriteServerQuery) QueryTags() *TagQuery {
+	query := (&TagClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := fsq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := fsq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -77,7 +77,7 @@ func (fsq *FavoriteServerQuery) QueryTags() *TagQuery {
 			sqlgraph.To(tag.Table, tag.FieldID),
 			sqlgraph.Edge(sqlgraph.M2M, true, favoriteserver.TagsTable, favoriteserver.TagsPrimaryKey...),
 		)
-		fromU = sqlgraph.SetNeighbors(fsq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -85,8 +85,8 @@ func (fsq *FavoriteServerQuery) QueryTags() *TagQuery {
 
 // First returns the first FavoriteServer entity from the query.
 // Returns a *NotFoundError when no FavoriteServer was found.
-func (fsq *FavoriteServerQuery) First(ctx context.Context) (*FavoriteServer, error) {
-	nodes, err := fsq.Limit(1).All(setContextOp(ctx, fsq.ctx, ent.OpQueryFirst))
+func (_q *FavoriteServerQuery) First(ctx context.Context) (*FavoriteServer, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -97,8 +97,8 @@ func (fsq *FavoriteServerQuery) First(ctx context.Context) (*FavoriteServer, err
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (fsq *FavoriteServerQuery) FirstX(ctx context.Context) *FavoriteServer {
-	node, err := fsq.First(ctx)
+func (_q *FavoriteServerQuery) FirstX(ctx context.Context) *FavoriteServer {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -107,9 +107,9 @@ func (fsq *FavoriteServerQuery) FirstX(ctx context.Context) *FavoriteServer {
 
 // FirstID returns the first FavoriteServer ID from the query.
 // Returns a *NotFoundError when no FavoriteServer ID was found.
-func (fsq *FavoriteServerQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *FavoriteServerQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = fsq.Limit(1).IDs(setContextOp(ctx, fsq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -120,8 +120,8 @@ func (fsq *FavoriteServerQuery) FirstID(ctx context.Context) (id int, err error)
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (fsq *FavoriteServerQuery) FirstIDX(ctx context.Context) int {
-	id, err := fsq.FirstID(ctx)
+func (_q *FavoriteServerQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -131,8 +131,8 @@ func (fsq *FavoriteServerQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single FavoriteServer entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one FavoriteServer entity is found.
 // Returns a *NotFoundError when no FavoriteServer entities are found.
-func (fsq *FavoriteServerQuery) Only(ctx context.Context) (*FavoriteServer, error) {
-	nodes, err := fsq.Limit(2).All(setContextOp(ctx, fsq.ctx, ent.OpQueryOnly))
+func (_q *FavoriteServerQuery) Only(ctx context.Context) (*FavoriteServer, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -147,8 +147,8 @@ func (fsq *FavoriteServerQuery) Only(ctx context.Context) (*FavoriteServer, erro
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (fsq *FavoriteServerQuery) OnlyX(ctx context.Context) *FavoriteServer {
-	node, err := fsq.Only(ctx)
+func (_q *FavoriteServerQuery) OnlyX(ctx context.Context) *FavoriteServer {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -158,9 +158,9 @@ func (fsq *FavoriteServerQuery) OnlyX(ctx context.Context) *FavoriteServer {
 // OnlyID is like Only, but returns the only FavoriteServer ID in the query.
 // Returns a *NotSingularError when more than one FavoriteServer ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (fsq *FavoriteServerQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *FavoriteServerQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = fsq.Limit(2).IDs(setContextOp(ctx, fsq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -175,8 +175,8 @@ func (fsq *FavoriteServerQuery) OnlyID(ctx context.Context) (id int, err error) 
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (fsq *FavoriteServerQuery) OnlyIDX(ctx context.Context) int {
-	id, err := fsq.OnlyID(ctx)
+func (_q *FavoriteServerQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -184,18 +184,18 @@ func (fsq *FavoriteServerQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of FavoriteServers.
-func (fsq *FavoriteServerQuery) All(ctx context.Context) ([]*FavoriteServer, error) {
-	ctx = setContextOp(ctx, fsq.ctx, ent.OpQueryAll)
-	if err := fsq.prepareQuery(ctx); err != nil {
+func (_q *FavoriteServerQuery) All(ctx context.Context) ([]*FavoriteServer, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*FavoriteServer, *FavoriteServerQuery]()
-	return withInterceptors[[]*FavoriteServer](ctx, fsq, qr, fsq.inters)
+	return withInterceptors[[]*FavoriteServer](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (fsq *FavoriteServerQuery) AllX(ctx context.Context) []*FavoriteServer {
-	nodes, err := fsq.All(ctx)
+func (_q *FavoriteServerQuery) AllX(ctx context.Context) []*FavoriteServer {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -203,20 +203,20 @@ func (fsq *FavoriteServerQuery) AllX(ctx context.Context) []*FavoriteServer {
 }
 
 // IDs executes the query and returns a list of FavoriteServer IDs.
-func (fsq *FavoriteServerQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if fsq.ctx.Unique == nil && fsq.path != nil {
-		fsq.Unique(true)
+func (_q *FavoriteServerQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, fsq.ctx, ent.OpQueryIDs)
-	if err = fsq.Select(favoriteserver.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(favoriteserver.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (fsq *FavoriteServerQuery) IDsX(ctx context.Context) []int {
-	ids, err := fsq.IDs(ctx)
+func (_q *FavoriteServerQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -224,17 +224,17 @@ func (fsq *FavoriteServerQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (fsq *FavoriteServerQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, fsq.ctx, ent.OpQueryCount)
-	if err := fsq.prepareQuery(ctx); err != nil {
+func (_q *FavoriteServerQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, fsq, querierCount[*FavoriteServerQuery](), fsq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*FavoriteServerQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (fsq *FavoriteServerQuery) CountX(ctx context.Context) int {
-	count, err := fsq.Count(ctx)
+func (_q *FavoriteServerQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -242,9 +242,9 @@ func (fsq *FavoriteServerQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (fsq *FavoriteServerQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, fsq.ctx, ent.OpQueryExist)
-	switch _, err := fsq.FirstID(ctx); {
+func (_q *FavoriteServerQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -255,8 +255,8 @@ func (fsq *FavoriteServerQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (fsq *FavoriteServerQuery) ExistX(ctx context.Context) bool {
-	exist, err := fsq.Exist(ctx)
+func (_q *FavoriteServerQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -265,32 +265,32 @@ func (fsq *FavoriteServerQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the FavoriteServerQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (fsq *FavoriteServerQuery) Clone() *FavoriteServerQuery {
-	if fsq == nil {
+func (_q *FavoriteServerQuery) Clone() *FavoriteServerQuery {
+	if _q == nil {
 		return nil
 	}
 	return &FavoriteServerQuery{
-		config:     fsq.config,
-		ctx:        fsq.ctx.Clone(),
-		order:      append([]favoriteserver.OrderOption{}, fsq.order...),
-		inters:     append([]Interceptor{}, fsq.inters...),
-		predicates: append([]predicate.FavoriteServer{}, fsq.predicates...),
-		withTags:   fsq.withTags.Clone(),
+		config:     _q.config,
+		ctx:        _q.ctx.Clone(),
+		order:      append([]favoriteserver.OrderOption{}, _q.order...),
+		inters:     append([]Interceptor{}, _q.inters...),
+		predicates: append([]predicate.FavoriteServer{}, _q.predicates...),
+		withTags:   _q.withTags.Clone(),
 		// clone intermediate query.
-		sql:  fsq.sql.Clone(),
-		path: fsq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithTags tells the query-builder to eager-load the nodes that are connected to
 // the "tags" edge. The optional arguments are used to configure the query builder of the edge.
-func (fsq *FavoriteServerQuery) WithTags(opts ...func(*TagQuery)) *FavoriteServerQuery {
-	query := (&TagClient{config: fsq.config}).Query()
+func (_q *FavoriteServerQuery) WithTags(opts ...func(*TagQuery)) *FavoriteServerQuery {
+	query := (&TagClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	fsq.withTags = query
-	return fsq
+	_q.withTags = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -307,10 +307,10 @@ func (fsq *FavoriteServerQuery) WithTags(opts ...func(*TagQuery)) *FavoriteServe
 //		GroupBy(favoriteserver.FieldAddr).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (fsq *FavoriteServerQuery) GroupBy(field string, fields ...string) *FavoriteServerGroupBy {
-	fsq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &FavoriteServerGroupBy{build: fsq}
-	grbuild.flds = &fsq.ctx.Fields
+func (_q *FavoriteServerQuery) GroupBy(field string, fields ...string) *FavoriteServerGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &FavoriteServerGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = favoriteserver.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -328,58 +328,58 @@ func (fsq *FavoriteServerQuery) GroupBy(field string, fields ...string) *Favorit
 //	client.FavoriteServer.Query().
 //		Select(favoriteserver.FieldAddr).
 //		Scan(ctx, &v)
-func (fsq *FavoriteServerQuery) Select(fields ...string) *FavoriteServerSelect {
-	fsq.ctx.Fields = append(fsq.ctx.Fields, fields...)
-	sbuild := &FavoriteServerSelect{FavoriteServerQuery: fsq}
+func (_q *FavoriteServerQuery) Select(fields ...string) *FavoriteServerSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &FavoriteServerSelect{FavoriteServerQuery: _q}
 	sbuild.label = favoriteserver.Label
-	sbuild.flds, sbuild.scan = &fsq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a FavoriteServerSelect configured with the given aggregations.
-func (fsq *FavoriteServerQuery) Aggregate(fns ...AggregateFunc) *FavoriteServerSelect {
-	return fsq.Select().Aggregate(fns...)
+func (_q *FavoriteServerQuery) Aggregate(fns ...AggregateFunc) *FavoriteServerSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (fsq *FavoriteServerQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range fsq.inters {
+func (_q *FavoriteServerQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, fsq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range fsq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !favoriteserver.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if fsq.path != nil {
-		prev, err := fsq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		fsq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (fsq *FavoriteServerQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*FavoriteServer, error) {
+func (_q *FavoriteServerQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*FavoriteServer, error) {
 	var (
 		nodes       = []*FavoriteServer{}
-		_spec       = fsq.querySpec()
+		_spec       = _q.querySpec()
 		loadedTypes = [1]bool{
-			fsq.withTags != nil,
+			_q.withTags != nil,
 		}
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*FavoriteServer).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &FavoriteServer{config: fsq.config}
+		node := &FavoriteServer{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -387,14 +387,14 @@ func (fsq *FavoriteServerQuery) sqlAll(ctx context.Context, hooks ...queryHook) 
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, fsq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := fsq.withTags; query != nil {
-		if err := fsq.loadTags(ctx, query, nodes,
+	if query := _q.withTags; query != nil {
+		if err := _q.loadTags(ctx, query, nodes,
 			func(n *FavoriteServer) { n.Edges.Tags = []*Tag{} },
 			func(n *FavoriteServer, e *Tag) { n.Edges.Tags = append(n.Edges.Tags, e) }); err != nil {
 			return nil, err
@@ -403,7 +403,7 @@ func (fsq *FavoriteServerQuery) sqlAll(ctx context.Context, hooks ...queryHook) 
 	return nodes, nil
 }
 
-func (fsq *FavoriteServerQuery) loadTags(ctx context.Context, query *TagQuery, nodes []*FavoriteServer, init func(*FavoriteServer), assign func(*FavoriteServer, *Tag)) error {
+func (_q *FavoriteServerQuery) loadTags(ctx context.Context, query *TagQuery, nodes []*FavoriteServer, init func(*FavoriteServer), assign func(*FavoriteServer, *Tag)) error {
 	edgeIDs := make([]driver.Value, len(nodes))
 	byID := make(map[int]*FavoriteServer)
 	nids := make(map[int]map[*FavoriteServer]struct{})
@@ -465,24 +465,24 @@ func (fsq *FavoriteServerQuery) loadTags(ctx context.Context, query *TagQuery, n
 	return nil
 }
 
-func (fsq *FavoriteServerQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := fsq.querySpec()
-	_spec.Node.Columns = fsq.ctx.Fields
-	if len(fsq.ctx.Fields) > 0 {
-		_spec.Unique = fsq.ctx.Unique != nil && *fsq.ctx.Unique
+func (_q *FavoriteServerQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, fsq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (fsq *FavoriteServerQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *FavoriteServerQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(favoriteserver.Table, favoriteserver.Columns, sqlgraph.NewFieldSpec(favoriteserver.FieldID, field.TypeInt))
-	_spec.From = fsq.sql
-	if unique := fsq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if fsq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := fsq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, favoriteserver.FieldID)
 		for i := range fields {
@@ -491,20 +491,20 @@ func (fsq *FavoriteServerQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := fsq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := fsq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := fsq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := fsq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -514,33 +514,33 @@ func (fsq *FavoriteServerQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (fsq *FavoriteServerQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(fsq.driver.Dialect())
+func (_q *FavoriteServerQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(favoriteserver.Table)
-	columns := fsq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = favoriteserver.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if fsq.sql != nil {
-		selector = fsq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if fsq.ctx.Unique != nil && *fsq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range fsq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range fsq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := fsq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := fsq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -553,41 +553,41 @@ type FavoriteServerGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (fsgb *FavoriteServerGroupBy) Aggregate(fns ...AggregateFunc) *FavoriteServerGroupBy {
-	fsgb.fns = append(fsgb.fns, fns...)
-	return fsgb
+func (_g *FavoriteServerGroupBy) Aggregate(fns ...AggregateFunc) *FavoriteServerGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (fsgb *FavoriteServerGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, fsgb.build.ctx, ent.OpQueryGroupBy)
-	if err := fsgb.build.prepareQuery(ctx); err != nil {
+func (_g *FavoriteServerGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*FavoriteServerQuery, *FavoriteServerGroupBy](ctx, fsgb.build, fsgb, fsgb.build.inters, v)
+	return scanWithInterceptors[*FavoriteServerQuery, *FavoriteServerGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (fsgb *FavoriteServerGroupBy) sqlScan(ctx context.Context, root *FavoriteServerQuery, v any) error {
+func (_g *FavoriteServerGroupBy) sqlScan(ctx context.Context, root *FavoriteServerQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(fsgb.fns))
-	for _, fn := range fsgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*fsgb.flds)+len(fsgb.fns))
-		for _, f := range *fsgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*fsgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := fsgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -601,27 +601,27 @@ type FavoriteServerSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (fss *FavoriteServerSelect) Aggregate(fns ...AggregateFunc) *FavoriteServerSelect {
-	fss.fns = append(fss.fns, fns...)
-	return fss
+func (_s *FavoriteServerSelect) Aggregate(fns ...AggregateFunc) *FavoriteServerSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (fss *FavoriteServerSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, fss.ctx, ent.OpQuerySelect)
-	if err := fss.prepareQuery(ctx); err != nil {
+func (_s *FavoriteServerSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*FavoriteServerQuery, *FavoriteServerSelect](ctx, fss.FavoriteServerQuery, fss, fss.inters, v)
+	return scanWithInterceptors[*FavoriteServerQuery, *FavoriteServerSelect](ctx, _s.FavoriteServerQuery, _s, _s.inters, v)
 }
 
-func (fss *FavoriteServerSelect) sqlScan(ctx context.Context, root *FavoriteServerQuery, v any) error {
+func (_s *FavoriteServerSelect) sqlScan(ctx context.Context, root *FavoriteServerQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(fss.fns))
-	for _, fn := range fss.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*fss.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -629,7 +629,7 @@ func (fss *FavoriteServerSelect) sqlScan(ctx context.Context, root *FavoriteServ
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := fss.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

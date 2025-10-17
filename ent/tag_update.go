@@ -23,115 +23,115 @@ type TagUpdate struct {
 }
 
 // Where appends a list predicates to the TagUpdate builder.
-func (tu *TagUpdate) Where(ps ...predicate.Tag) *TagUpdate {
-	tu.mutation.Where(ps...)
-	return tu
+func (_u *TagUpdate) Where(ps ...predicate.Tag) *TagUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetDescription sets the "description" field.
-func (tu *TagUpdate) SetDescription(s string) *TagUpdate {
-	tu.mutation.SetDescription(s)
-	return tu
+func (_u *TagUpdate) SetDescription(v string) *TagUpdate {
+	_u.mutation.SetDescription(v)
+	return _u
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (tu *TagUpdate) SetNillableDescription(s *string) *TagUpdate {
-	if s != nil {
-		tu.SetDescription(*s)
+func (_u *TagUpdate) SetNillableDescription(v *string) *TagUpdate {
+	if v != nil {
+		_u.SetDescription(*v)
 	}
-	return tu
+	return _u
 }
 
 // ClearDescription clears the value of the "description" field.
-func (tu *TagUpdate) ClearDescription() *TagUpdate {
-	tu.mutation.ClearDescription()
-	return tu
+func (_u *TagUpdate) ClearDescription() *TagUpdate {
+	_u.mutation.ClearDescription()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (tu *TagUpdate) SetName(s string) *TagUpdate {
-	tu.mutation.SetName(s)
-	return tu
+func (_u *TagUpdate) SetName(v string) *TagUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (tu *TagUpdate) SetNillableName(s *string) *TagUpdate {
-	if s != nil {
-		tu.SetName(*s)
+func (_u *TagUpdate) SetNillableName(v *string) *TagUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return tu
+	return _u
 }
 
 // SetRank sets the "rank" field.
-func (tu *TagUpdate) SetRank(i int) *TagUpdate {
-	tu.mutation.ResetRank()
-	tu.mutation.SetRank(i)
-	return tu
+func (_u *TagUpdate) SetRank(v int) *TagUpdate {
+	_u.mutation.ResetRank()
+	_u.mutation.SetRank(v)
+	return _u
 }
 
 // SetNillableRank sets the "rank" field if the given value is not nil.
-func (tu *TagUpdate) SetNillableRank(i *int) *TagUpdate {
-	if i != nil {
-		tu.SetRank(*i)
+func (_u *TagUpdate) SetNillableRank(v *int) *TagUpdate {
+	if v != nil {
+		_u.SetRank(*v)
 	}
-	return tu
+	return _u
 }
 
-// AddRank adds i to the "rank" field.
-func (tu *TagUpdate) AddRank(i int) *TagUpdate {
-	tu.mutation.AddRank(i)
-	return tu
+// AddRank adds value to the "rank" field.
+func (_u *TagUpdate) AddRank(v int) *TagUpdate {
+	_u.mutation.AddRank(v)
+	return _u
 }
 
 // AddServerIDs adds the "servers" edge to the FavoriteServer entity by IDs.
-func (tu *TagUpdate) AddServerIDs(ids ...int) *TagUpdate {
-	tu.mutation.AddServerIDs(ids...)
-	return tu
+func (_u *TagUpdate) AddServerIDs(ids ...int) *TagUpdate {
+	_u.mutation.AddServerIDs(ids...)
+	return _u
 }
 
 // AddServers adds the "servers" edges to the FavoriteServer entity.
-func (tu *TagUpdate) AddServers(f ...*FavoriteServer) *TagUpdate {
-	ids := make([]int, len(f))
-	for i := range f {
-		ids[i] = f[i].ID
+func (_u *TagUpdate) AddServers(v ...*FavoriteServer) *TagUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return tu.AddServerIDs(ids...)
+	return _u.AddServerIDs(ids...)
 }
 
 // Mutation returns the TagMutation object of the builder.
-func (tu *TagUpdate) Mutation() *TagMutation {
-	return tu.mutation
+func (_u *TagUpdate) Mutation() *TagMutation {
+	return _u.mutation
 }
 
 // ClearServers clears all "servers" edges to the FavoriteServer entity.
-func (tu *TagUpdate) ClearServers() *TagUpdate {
-	tu.mutation.ClearServers()
-	return tu
+func (_u *TagUpdate) ClearServers() *TagUpdate {
+	_u.mutation.ClearServers()
+	return _u
 }
 
 // RemoveServerIDs removes the "servers" edge to FavoriteServer entities by IDs.
-func (tu *TagUpdate) RemoveServerIDs(ids ...int) *TagUpdate {
-	tu.mutation.RemoveServerIDs(ids...)
-	return tu
+func (_u *TagUpdate) RemoveServerIDs(ids ...int) *TagUpdate {
+	_u.mutation.RemoveServerIDs(ids...)
+	return _u
 }
 
 // RemoveServers removes "servers" edges to FavoriteServer entities.
-func (tu *TagUpdate) RemoveServers(f ...*FavoriteServer) *TagUpdate {
-	ids := make([]int, len(f))
-	for i := range f {
-		ids[i] = f[i].ID
+func (_u *TagUpdate) RemoveServers(v ...*FavoriteServer) *TagUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return tu.RemoveServerIDs(ids...)
+	return _u.RemoveServerIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (tu *TagUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, tu.sqlSave, tu.mutation, tu.hooks)
+func (_u *TagUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (tu *TagUpdate) SaveX(ctx context.Context) int {
-	affected, err := tu.Save(ctx)
+func (_u *TagUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -139,43 +139,43 @@ func (tu *TagUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (tu *TagUpdate) Exec(ctx context.Context) error {
-	_, err := tu.Save(ctx)
+func (_u *TagUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tu *TagUpdate) ExecX(ctx context.Context) {
-	if err := tu.Exec(ctx); err != nil {
+func (_u *TagUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (tu *TagUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *TagUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(tag.Table, tag.Columns, sqlgraph.NewFieldSpec(tag.FieldID, field.TypeInt))
-	if ps := tu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := tu.mutation.Description(); ok {
+	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(tag.FieldDescription, field.TypeString, value)
 	}
-	if tu.mutation.DescriptionCleared() {
+	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(tag.FieldDescription, field.TypeString)
 	}
-	if value, ok := tu.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(tag.FieldName, field.TypeString, value)
 	}
-	if value, ok := tu.mutation.Rank(); ok {
+	if value, ok := _u.mutation.Rank(); ok {
 		_spec.SetField(tag.FieldRank, field.TypeInt, value)
 	}
-	if value, ok := tu.mutation.AddedRank(); ok {
+	if value, ok := _u.mutation.AddedRank(); ok {
 		_spec.AddField(tag.FieldRank, field.TypeInt, value)
 	}
-	if tu.mutation.ServersCleared() {
+	if _u.mutation.ServersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -188,7 +188,7 @@ func (tu *TagUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tu.mutation.RemovedServersIDs(); len(nodes) > 0 && !tu.mutation.ServersCleared() {
+	if nodes := _u.mutation.RemovedServersIDs(); len(nodes) > 0 && !_u.mutation.ServersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -204,7 +204,7 @@ func (tu *TagUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tu.mutation.ServersIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ServersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -220,7 +220,7 @@ func (tu *TagUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, tu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{tag.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -228,8 +228,8 @@ func (tu *TagUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	tu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // TagUpdateOne is the builder for updating a single Tag entity.
@@ -241,122 +241,122 @@ type TagUpdateOne struct {
 }
 
 // SetDescription sets the "description" field.
-func (tuo *TagUpdateOne) SetDescription(s string) *TagUpdateOne {
-	tuo.mutation.SetDescription(s)
-	return tuo
+func (_u *TagUpdateOne) SetDescription(v string) *TagUpdateOne {
+	_u.mutation.SetDescription(v)
+	return _u
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (tuo *TagUpdateOne) SetNillableDescription(s *string) *TagUpdateOne {
-	if s != nil {
-		tuo.SetDescription(*s)
+func (_u *TagUpdateOne) SetNillableDescription(v *string) *TagUpdateOne {
+	if v != nil {
+		_u.SetDescription(*v)
 	}
-	return tuo
+	return _u
 }
 
 // ClearDescription clears the value of the "description" field.
-func (tuo *TagUpdateOne) ClearDescription() *TagUpdateOne {
-	tuo.mutation.ClearDescription()
-	return tuo
+func (_u *TagUpdateOne) ClearDescription() *TagUpdateOne {
+	_u.mutation.ClearDescription()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (tuo *TagUpdateOne) SetName(s string) *TagUpdateOne {
-	tuo.mutation.SetName(s)
-	return tuo
+func (_u *TagUpdateOne) SetName(v string) *TagUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (tuo *TagUpdateOne) SetNillableName(s *string) *TagUpdateOne {
-	if s != nil {
-		tuo.SetName(*s)
+func (_u *TagUpdateOne) SetNillableName(v *string) *TagUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return tuo
+	return _u
 }
 
 // SetRank sets the "rank" field.
-func (tuo *TagUpdateOne) SetRank(i int) *TagUpdateOne {
-	tuo.mutation.ResetRank()
-	tuo.mutation.SetRank(i)
-	return tuo
+func (_u *TagUpdateOne) SetRank(v int) *TagUpdateOne {
+	_u.mutation.ResetRank()
+	_u.mutation.SetRank(v)
+	return _u
 }
 
 // SetNillableRank sets the "rank" field if the given value is not nil.
-func (tuo *TagUpdateOne) SetNillableRank(i *int) *TagUpdateOne {
-	if i != nil {
-		tuo.SetRank(*i)
+func (_u *TagUpdateOne) SetNillableRank(v *int) *TagUpdateOne {
+	if v != nil {
+		_u.SetRank(*v)
 	}
-	return tuo
+	return _u
 }
 
-// AddRank adds i to the "rank" field.
-func (tuo *TagUpdateOne) AddRank(i int) *TagUpdateOne {
-	tuo.mutation.AddRank(i)
-	return tuo
+// AddRank adds value to the "rank" field.
+func (_u *TagUpdateOne) AddRank(v int) *TagUpdateOne {
+	_u.mutation.AddRank(v)
+	return _u
 }
 
 // AddServerIDs adds the "servers" edge to the FavoriteServer entity by IDs.
-func (tuo *TagUpdateOne) AddServerIDs(ids ...int) *TagUpdateOne {
-	tuo.mutation.AddServerIDs(ids...)
-	return tuo
+func (_u *TagUpdateOne) AddServerIDs(ids ...int) *TagUpdateOne {
+	_u.mutation.AddServerIDs(ids...)
+	return _u
 }
 
 // AddServers adds the "servers" edges to the FavoriteServer entity.
-func (tuo *TagUpdateOne) AddServers(f ...*FavoriteServer) *TagUpdateOne {
-	ids := make([]int, len(f))
-	for i := range f {
-		ids[i] = f[i].ID
+func (_u *TagUpdateOne) AddServers(v ...*FavoriteServer) *TagUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return tuo.AddServerIDs(ids...)
+	return _u.AddServerIDs(ids...)
 }
 
 // Mutation returns the TagMutation object of the builder.
-func (tuo *TagUpdateOne) Mutation() *TagMutation {
-	return tuo.mutation
+func (_u *TagUpdateOne) Mutation() *TagMutation {
+	return _u.mutation
 }
 
 // ClearServers clears all "servers" edges to the FavoriteServer entity.
-func (tuo *TagUpdateOne) ClearServers() *TagUpdateOne {
-	tuo.mutation.ClearServers()
-	return tuo
+func (_u *TagUpdateOne) ClearServers() *TagUpdateOne {
+	_u.mutation.ClearServers()
+	return _u
 }
 
 // RemoveServerIDs removes the "servers" edge to FavoriteServer entities by IDs.
-func (tuo *TagUpdateOne) RemoveServerIDs(ids ...int) *TagUpdateOne {
-	tuo.mutation.RemoveServerIDs(ids...)
-	return tuo
+func (_u *TagUpdateOne) RemoveServerIDs(ids ...int) *TagUpdateOne {
+	_u.mutation.RemoveServerIDs(ids...)
+	return _u
 }
 
 // RemoveServers removes "servers" edges to FavoriteServer entities.
-func (tuo *TagUpdateOne) RemoveServers(f ...*FavoriteServer) *TagUpdateOne {
-	ids := make([]int, len(f))
-	for i := range f {
-		ids[i] = f[i].ID
+func (_u *TagUpdateOne) RemoveServers(v ...*FavoriteServer) *TagUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return tuo.RemoveServerIDs(ids...)
+	return _u.RemoveServerIDs(ids...)
 }
 
 // Where appends a list predicates to the TagUpdate builder.
-func (tuo *TagUpdateOne) Where(ps ...predicate.Tag) *TagUpdateOne {
-	tuo.mutation.Where(ps...)
-	return tuo
+func (_u *TagUpdateOne) Where(ps ...predicate.Tag) *TagUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (tuo *TagUpdateOne) Select(field string, fields ...string) *TagUpdateOne {
-	tuo.fields = append([]string{field}, fields...)
-	return tuo
+func (_u *TagUpdateOne) Select(field string, fields ...string) *TagUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated Tag entity.
-func (tuo *TagUpdateOne) Save(ctx context.Context) (*Tag, error) {
-	return withHooks(ctx, tuo.sqlSave, tuo.mutation, tuo.hooks)
+func (_u *TagUpdateOne) Save(ctx context.Context) (*Tag, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (tuo *TagUpdateOne) SaveX(ctx context.Context) *Tag {
-	node, err := tuo.Save(ctx)
+func (_u *TagUpdateOne) SaveX(ctx context.Context) *Tag {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -364,26 +364,26 @@ func (tuo *TagUpdateOne) SaveX(ctx context.Context) *Tag {
 }
 
 // Exec executes the query on the entity.
-func (tuo *TagUpdateOne) Exec(ctx context.Context) error {
-	_, err := tuo.Save(ctx)
+func (_u *TagUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (tuo *TagUpdateOne) ExecX(ctx context.Context) {
-	if err := tuo.Exec(ctx); err != nil {
+func (_u *TagUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (tuo *TagUpdateOne) sqlSave(ctx context.Context) (_node *Tag, err error) {
+func (_u *TagUpdateOne) sqlSave(ctx context.Context) (_node *Tag, err error) {
 	_spec := sqlgraph.NewUpdateSpec(tag.Table, tag.Columns, sqlgraph.NewFieldSpec(tag.FieldID, field.TypeInt))
-	id, ok := tuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Tag.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := tuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, tag.FieldID)
 		for _, f := range fields {
@@ -395,29 +395,29 @@ func (tuo *TagUpdateOne) sqlSave(ctx context.Context) (_node *Tag, err error) {
 			}
 		}
 	}
-	if ps := tuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := tuo.mutation.Description(); ok {
+	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(tag.FieldDescription, field.TypeString, value)
 	}
-	if tuo.mutation.DescriptionCleared() {
+	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(tag.FieldDescription, field.TypeString)
 	}
-	if value, ok := tuo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(tag.FieldName, field.TypeString, value)
 	}
-	if value, ok := tuo.mutation.Rank(); ok {
+	if value, ok := _u.mutation.Rank(); ok {
 		_spec.SetField(tag.FieldRank, field.TypeInt, value)
 	}
-	if value, ok := tuo.mutation.AddedRank(); ok {
+	if value, ok := _u.mutation.AddedRank(); ok {
 		_spec.AddField(tag.FieldRank, field.TypeInt, value)
 	}
-	if tuo.mutation.ServersCleared() {
+	if _u.mutation.ServersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -430,7 +430,7 @@ func (tuo *TagUpdateOne) sqlSave(ctx context.Context) (_node *Tag, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tuo.mutation.RemovedServersIDs(); len(nodes) > 0 && !tuo.mutation.ServersCleared() {
+	if nodes := _u.mutation.RemovedServersIDs(); len(nodes) > 0 && !_u.mutation.ServersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -446,7 +446,7 @@ func (tuo *TagUpdateOne) sqlSave(ctx context.Context) (_node *Tag, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tuo.mutation.ServersIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ServersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: false,
@@ -462,10 +462,10 @@ func (tuo *TagUpdateOne) sqlSave(ctx context.Context) (_node *Tag, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &Tag{config: tuo.config}
+	_node = &Tag{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, tuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{tag.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -473,6 +473,6 @@ func (tuo *TagUpdateOne) sqlSave(ctx context.Context) (_node *Tag, err error) {
 		}
 		return nil, err
 	}
-	tuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

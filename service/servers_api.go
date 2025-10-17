@@ -84,16 +84,13 @@ func PatchServer(id int, item dto.Server) error {
 }
 
 func QueryServers(tagIds []int, name string) ([]dto.Server, error) {
-	logger.Log.Info("QueryServers arg:", "name", name)
+	name = strings.TrimSpace(name)
+	logger.Log.Info("QueryServers arg:", "name", lo.Ternary(name == "", "empty", name))
 	result, err, _ := singleflight.Sf().Do("servers", func() (interface{}, error) {
 		var dtos []dto.Server
 		wg := conc.NewWaitGroup()
-
 		client := Client()
 		ctx := context.Background()
-
-		name = strings.TrimSpace(name)
-
 		serverCond := []predicate.FavoriteServer{}
 
 		if name != "" {
@@ -121,13 +118,6 @@ func QueryServers(tagIds []int, name string) ([]dto.Server, error) {
 			return item.Addr
 		})
 
-		//if len(tagIds) == 0 {
-		//	all, err = client.FavoriteServer.Query().All(ctx)
-		//	if err != nil {
-		//		return nil, err
-		//	}
-		//}
-
 		for _, server := range all {
 			wg.Go(func() {
 				info, err := Query(server.Addr)
@@ -149,7 +139,7 @@ func QueryServers(tagIds []int, name string) ([]dto.Server, error) {
 		if dtos == nil {
 			dtos = make([]dto.Server, 0)
 		}
-
+		logger.Log.Info("所有服务器测试成功")
 		slice.SortBy(dtos, func(a, b dto.Server) bool {
 			priorityA := 0
 			priorityB := 0
@@ -162,7 +152,6 @@ func QueryServers(tagIds []int, name string) ([]dto.Server, error) {
 
 			return priorityA < priorityB
 		})
-
 		return dtos, nil
 	})
 

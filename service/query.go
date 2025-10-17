@@ -79,21 +79,14 @@ func serverInfo(address string, timeout time.Duration) ([]byte, error) {
 // []any 用来接收所有的解析后的数据
 // 这里应该直接根据字节解析, 把处理字段信息的逻辑耦合进去了, 不是很好
 func unpackInfo(data []byte) []string {
-
 	checkStringRes := []string{}
-
 	var msg []interface{}
-	mainLog := 0
-	_ = mainLog
-
 	// Plan B
 	sock := 0
-
 	// index bound handle
 	if len(data) == 0 {
 		return checkStringRes
 	}
-
 	for n := 1; n < 17; n++ {
 		switch n {
 		// 推测为单独一个字节, 转换后添加的结果集中
@@ -116,12 +109,6 @@ func unpackInfo(data []byte) []string {
 		}
 
 	}
-	// if n == 17 { // long long
-	//     tempUnit := binary.LittleEndian.Uint64(data[s : s+8])
-	//     msg = append(msg, tempUnit)
-	//     s += 8
-	// }
-
 	curPlayerNum := cast.ToString(msg[3])
 	maxPlayerNum := cast.ToString(msg[4])
 	botPlayerNum := cast.ToString(msg[5])

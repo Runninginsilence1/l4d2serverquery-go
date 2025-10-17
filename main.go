@@ -10,11 +10,9 @@ import (
 )
 
 func main() {
-	port := flag.Int("port", 44316, "Port to run the server on")
+	port := flag.Int("port", 44316, "web服务器端口")
 	flag.Parse()
-
 	service.InitClient()
-
 	if err := webServer(*port); err != nil {
 		log.Fatal(err)
 	}

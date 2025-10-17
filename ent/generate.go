@@ -1,3 +1,3 @@
 package ent
 
-//go:generate ent.exe generate ./schema
+//go:generate ent generate ./schema

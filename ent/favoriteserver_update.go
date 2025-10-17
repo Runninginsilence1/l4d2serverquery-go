@@ -24,155 +24,155 @@ type FavoriteServerUpdate struct {
 }
 
 // Where appends a list predicates to the FavoriteServerUpdate builder.
-func (fsu *FavoriteServerUpdate) Where(ps ...predicate.FavoriteServer) *FavoriteServerUpdate {
-	fsu.mutation.Where(ps...)
-	return fsu
+func (_u *FavoriteServerUpdate) Where(ps ...predicate.FavoriteServer) *FavoriteServerUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetAddr sets the "addr" field.
-func (fsu *FavoriteServerUpdate) SetAddr(s string) *FavoriteServerUpdate {
-	fsu.mutation.SetAddr(s)
-	return fsu
+func (_u *FavoriteServerUpdate) SetAddr(v string) *FavoriteServerUpdate {
+	_u.mutation.SetAddr(v)
+	return _u
 }
 
 // SetNillableAddr sets the "addr" field if the given value is not nil.
-func (fsu *FavoriteServerUpdate) SetNillableAddr(s *string) *FavoriteServerUpdate {
-	if s != nil {
-		fsu.SetAddr(*s)
+func (_u *FavoriteServerUpdate) SetNillableAddr(v *string) *FavoriteServerUpdate {
+	if v != nil {
+		_u.SetAddr(*v)
 	}
-	return fsu
+	return _u
 }
 
 // SetName sets the "name" field.
-func (fsu *FavoriteServerUpdate) SetName(s string) *FavoriteServerUpdate {
-	fsu.mutation.SetName(s)
-	return fsu
+func (_u *FavoriteServerUpdate) SetName(v string) *FavoriteServerUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (fsu *FavoriteServerUpdate) SetNillableName(s *string) *FavoriteServerUpdate {
-	if s != nil {
-		fsu.SetName(*s)
+func (_u *FavoriteServerUpdate) SetNillableName(v *string) *FavoriteServerUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return fsu
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (fsu *FavoriteServerUpdate) ClearName() *FavoriteServerUpdate {
-	fsu.mutation.ClearName()
-	return fsu
+func (_u *FavoriteServerUpdate) ClearName() *FavoriteServerUpdate {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetDesc sets the "desc" field.
-func (fsu *FavoriteServerUpdate) SetDesc(s string) *FavoriteServerUpdate {
-	fsu.mutation.SetDesc(s)
-	return fsu
+func (_u *FavoriteServerUpdate) SetDesc(v string) *FavoriteServerUpdate {
+	_u.mutation.SetDesc(v)
+	return _u
 }
 
 // SetNillableDesc sets the "desc" field if the given value is not nil.
-func (fsu *FavoriteServerUpdate) SetNillableDesc(s *string) *FavoriteServerUpdate {
-	if s != nil {
-		fsu.SetDesc(*s)
+func (_u *FavoriteServerUpdate) SetNillableDesc(v *string) *FavoriteServerUpdate {
+	if v != nil {
+		_u.SetDesc(*v)
 	}
-	return fsu
+	return _u
 }
 
 // ClearDesc clears the value of the "desc" field.
-func (fsu *FavoriteServerUpdate) ClearDesc() *FavoriteServerUpdate {
-	fsu.mutation.ClearDesc()
-	return fsu
+func (_u *FavoriteServerUpdate) ClearDesc() *FavoriteServerUpdate {
+	_u.mutation.ClearDesc()
+	return _u
 }
 
 // SetLastQueryTime sets the "last_query_time" field.
-func (fsu *FavoriteServerUpdate) SetLastQueryTime(t time.Time) *FavoriteServerUpdate {
-	fsu.mutation.SetLastQueryTime(t)
-	return fsu
+func (_u *FavoriteServerUpdate) SetLastQueryTime(v time.Time) *FavoriteServerUpdate {
+	_u.mutation.SetLastQueryTime(v)
+	return _u
 }
 
 // SetNillableLastQueryTime sets the "last_query_time" field if the given value is not nil.
-func (fsu *FavoriteServerUpdate) SetNillableLastQueryTime(t *time.Time) *FavoriteServerUpdate {
-	if t != nil {
-		fsu.SetLastQueryTime(*t)
+func (_u *FavoriteServerUpdate) SetNillableLastQueryTime(v *time.Time) *FavoriteServerUpdate {
+	if v != nil {
+		_u.SetLastQueryTime(*v)
 	}
-	return fsu
+	return _u
 }
 
 // ClearLastQueryTime clears the value of the "last_query_time" field.
-func (fsu *FavoriteServerUpdate) ClearLastQueryTime() *FavoriteServerUpdate {
-	fsu.mutation.ClearLastQueryTime()
-	return fsu
+func (_u *FavoriteServerUpdate) ClearLastQueryTime() *FavoriteServerUpdate {
+	_u.mutation.ClearLastQueryTime()
+	return _u
 }
 
 // SetRank sets the "rank" field.
-func (fsu *FavoriteServerUpdate) SetRank(i int) *FavoriteServerUpdate {
-	fsu.mutation.ResetRank()
-	fsu.mutation.SetRank(i)
-	return fsu
+func (_u *FavoriteServerUpdate) SetRank(v int) *FavoriteServerUpdate {
+	_u.mutation.ResetRank()
+	_u.mutation.SetRank(v)
+	return _u
 }
 
 // SetNillableRank sets the "rank" field if the given value is not nil.
-func (fsu *FavoriteServerUpdate) SetNillableRank(i *int) *FavoriteServerUpdate {
-	if i != nil {
-		fsu.SetRank(*i)
+func (_u *FavoriteServerUpdate) SetNillableRank(v *int) *FavoriteServerUpdate {
+	if v != nil {
+		_u.SetRank(*v)
 	}
-	return fsu
+	return _u
 }
 
-// AddRank adds i to the "rank" field.
-func (fsu *FavoriteServerUpdate) AddRank(i int) *FavoriteServerUpdate {
-	fsu.mutation.AddRank(i)
-	return fsu
+// AddRank adds value to the "rank" field.
+func (_u *FavoriteServerUpdate) AddRank(v int) *FavoriteServerUpdate {
+	_u.mutation.AddRank(v)
+	return _u
 }
 
 // AddTagIDs adds the "tags" edge to the Tag entity by IDs.
-func (fsu *FavoriteServerUpdate) AddTagIDs(ids ...int) *FavoriteServerUpdate {
-	fsu.mutation.AddTagIDs(ids...)
-	return fsu
+func (_u *FavoriteServerUpdate) AddTagIDs(ids ...int) *FavoriteServerUpdate {
+	_u.mutation.AddTagIDs(ids...)
+	return _u
 }
 
 // AddTags adds the "tags" edges to the Tag entity.
-func (fsu *FavoriteServerUpdate) AddTags(t ...*Tag) *FavoriteServerUpdate {
-	ids := make([]int, len(t))
-	for i := range t {
-		ids[i] = t[i].ID
+func (_u *FavoriteServerUpdate) AddTags(v ...*Tag) *FavoriteServerUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return fsu.AddTagIDs(ids...)
+	return _u.AddTagIDs(ids...)
 }
 
 // Mutation returns the FavoriteServerMutation object of the builder.
-func (fsu *FavoriteServerUpdate) Mutation() *FavoriteServerMutation {
-	return fsu.mutation
+func (_u *FavoriteServerUpdate) Mutation() *FavoriteServerMutation {
+	return _u.mutation
 }
 
 // ClearTags clears all "tags" edges to the Tag entity.
-func (fsu *FavoriteServerUpdate) ClearTags() *FavoriteServerUpdate {
-	fsu.mutation.ClearTags()
-	return fsu
+func (_u *FavoriteServerUpdate) ClearTags() *FavoriteServerUpdate {
+	_u.mutation.ClearTags()
+	return _u
 }
 
 // RemoveTagIDs removes the "tags" edge to Tag entities by IDs.
-func (fsu *FavoriteServerUpdate) RemoveTagIDs(ids ...int) *FavoriteServerUpdate {
-	fsu.mutation.RemoveTagIDs(ids...)
-	return fsu
+func (_u *FavoriteServerUpdate) RemoveTagIDs(ids ...int) *FavoriteServerUpdate {
+	_u.mutation.RemoveTagIDs(ids...)
+	return _u
 }
 
 // RemoveTags removes "tags" edges to Tag entities.
-func (fsu *FavoriteServerUpdate) RemoveTags(t ...*Tag) *FavoriteServerUpdate {
-	ids := make([]int, len(t))
-	for i := range t {
-		ids[i] = t[i].ID
+func (_u *FavoriteServerUpdate) RemoveTags(v ...*Tag) *FavoriteServerUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return fsu.RemoveTagIDs(ids...)
+	return _u.RemoveTagIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (fsu *FavoriteServerUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, fsu.sqlSave, fsu.mutation, fsu.hooks)
+func (_u *FavoriteServerUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (fsu *FavoriteServerUpdate) SaveX(ctx context.Context) int {
-	affected, err := fsu.Save(ctx)
+func (_u *FavoriteServerUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -180,55 +180,55 @@ func (fsu *FavoriteServerUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (fsu *FavoriteServerUpdate) Exec(ctx context.Context) error {
-	_, err := fsu.Save(ctx)
+func (_u *FavoriteServerUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (fsu *FavoriteServerUpdate) ExecX(ctx context.Context) {
-	if err := fsu.Exec(ctx); err != nil {
+func (_u *FavoriteServerUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (fsu *FavoriteServerUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *FavoriteServerUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(favoriteserver.Table, favoriteserver.Columns, sqlgraph.NewFieldSpec(favoriteserver.FieldID, field.TypeInt))
-	if ps := fsu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := fsu.mutation.Addr(); ok {
+	if value, ok := _u.mutation.Addr(); ok {
 		_spec.SetField(favoriteserver.FieldAddr, field.TypeString, value)
 	}
-	if value, ok := fsu.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(favoriteserver.FieldName, field.TypeString, value)
 	}
-	if fsu.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(favoriteserver.FieldName, field.TypeString)
 	}
-	if value, ok := fsu.mutation.Desc(); ok {
+	if value, ok := _u.mutation.Desc(); ok {
 		_spec.SetField(favoriteserver.FieldDesc, field.TypeString, value)
 	}
-	if fsu.mutation.DescCleared() {
+	if _u.mutation.DescCleared() {
 		_spec.ClearField(favoriteserver.FieldDesc, field.TypeString)
 	}
-	if value, ok := fsu.mutation.LastQueryTime(); ok {
+	if value, ok := _u.mutation.LastQueryTime(); ok {
 		_spec.SetField(favoriteserver.FieldLastQueryTime, field.TypeTime, value)
 	}
-	if fsu.mutation.LastQueryTimeCleared() {
+	if _u.mutation.LastQueryTimeCleared() {
 		_spec.ClearField(favoriteserver.FieldLastQueryTime, field.TypeTime)
 	}
-	if value, ok := fsu.mutation.Rank(); ok {
+	if value, ok := _u.mutation.Rank(); ok {
 		_spec.SetField(favoriteserver.FieldRank, field.TypeInt, value)
 	}
-	if value, ok := fsu.mutation.AddedRank(); ok {
+	if value, ok := _u.mutation.AddedRank(); ok {
 		_spec.AddField(favoriteserver.FieldRank, field.TypeInt, value)
 	}
-	if fsu.mutation.TagsCleared() {
+	if _u.mutation.TagsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -241,7 +241,7 @@ func (fsu *FavoriteServerUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := fsu.mutation.RemovedTagsIDs(); len(nodes) > 0 && !fsu.mutation.TagsCleared() {
+	if nodes := _u.mutation.RemovedTagsIDs(); len(nodes) > 0 && !_u.mutation.TagsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -257,7 +257,7 @@ func (fsu *FavoriteServerUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := fsu.mutation.TagsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TagsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -273,7 +273,7 @@ func (fsu *FavoriteServerUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, fsu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{favoriteserver.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -281,8 +281,8 @@ func (fsu *FavoriteServerUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		return 0, err
 	}
-	fsu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // FavoriteServerUpdateOne is the builder for updating a single FavoriteServer entity.
@@ -294,162 +294,162 @@ type FavoriteServerUpdateOne struct {
 }
 
 // SetAddr sets the "addr" field.
-func (fsuo *FavoriteServerUpdateOne) SetAddr(s string) *FavoriteServerUpdateOne {
-	fsuo.mutation.SetAddr(s)
-	return fsuo
+func (_u *FavoriteServerUpdateOne) SetAddr(v string) *FavoriteServerUpdateOne {
+	_u.mutation.SetAddr(v)
+	return _u
 }
 
 // SetNillableAddr sets the "addr" field if the given value is not nil.
-func (fsuo *FavoriteServerUpdateOne) SetNillableAddr(s *string) *FavoriteServerUpdateOne {
-	if s != nil {
-		fsuo.SetAddr(*s)
+func (_u *FavoriteServerUpdateOne) SetNillableAddr(v *string) *FavoriteServerUpdateOne {
+	if v != nil {
+		_u.SetAddr(*v)
 	}
-	return fsuo
+	return _u
 }
 
 // SetName sets the "name" field.
-func (fsuo *FavoriteServerUpdateOne) SetName(s string) *FavoriteServerUpdateOne {
-	fsuo.mutation.SetName(s)
-	return fsuo
+func (_u *FavoriteServerUpdateOne) SetName(v string) *FavoriteServerUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (fsuo *FavoriteServerUpdateOne) SetNillableName(s *string) *FavoriteServerUpdateOne {
-	if s != nil {
-		fsuo.SetName(*s)
+func (_u *FavoriteServerUpdateOne) SetNillableName(v *string) *FavoriteServerUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return fsuo
+	return _u
 }
 
 // ClearName clears the value of the "name" field.
-func (fsuo *FavoriteServerUpdateOne) ClearName() *FavoriteServerUpdateOne {
-	fsuo.mutation.ClearName()
-	return fsuo
+func (_u *FavoriteServerUpdateOne) ClearName() *FavoriteServerUpdateOne {
+	_u.mutation.ClearName()
+	return _u
 }
 
 // SetDesc sets the "desc" field.
-func (fsuo *FavoriteServerUpdateOne) SetDesc(s string) *FavoriteServerUpdateOne {
-	fsuo.mutation.SetDesc(s)
-	return fsuo
+func (_u *FavoriteServerUpdateOne) SetDesc(v string) *FavoriteServerUpdateOne {
+	_u.mutation.SetDesc(v)
+	return _u
 }
 
 // SetNillableDesc sets the "desc" field if the given value is not nil.
-func (fsuo *FavoriteServerUpdateOne) SetNillableDesc(s *string) *FavoriteServerUpdateOne {
-	if s != nil {
-		fsuo.SetDesc(*s)
+func (_u *FavoriteServerUpdateOne) SetNillableDesc(v *string) *FavoriteServerUpdateOne {
+	if v != nil {
+		_u.SetDesc(*v)
 	}
-	return fsuo
+	return _u
 }
 
 // ClearDesc clears the value of the "desc" field.
-func (fsuo *FavoriteServerUpdateOne) ClearDesc() *FavoriteServerUpdateOne {
-	fsuo.mutation.ClearDesc()
-	return fsuo
+func (_u *FavoriteServerUpdateOne) ClearDesc() *FavoriteServerUpdateOne {
+	_u.mutation.ClearDesc()
+	return _u
 }
 
 // SetLastQueryTime sets the "last_query_time" field.
-func (fsuo *FavoriteServerUpdateOne) SetLastQueryTime(t time.Time) *FavoriteServerUpdateOne {
-	fsuo.mutation.SetLastQueryTime(t)
-	return fsuo
+func (_u *FavoriteServerUpdateOne) SetLastQueryTime(v time.Time) *FavoriteServerUpdateOne {
+	_u.mutation.SetLastQueryTime(v)
+	return _u
 }
 
 // SetNillableLastQueryTime sets the "last_query_time" field if the given value is not nil.
-func (fsuo *FavoriteServerUpdateOne) SetNillableLastQueryTime(t *time.Time) *FavoriteServerUpdateOne {
-	if t != nil {
-		fsuo.SetLastQueryTime(*t)
+func (_u *FavoriteServerUpdateOne) SetNillableLastQueryTime(v *time.Time) *FavoriteServerUpdateOne {
+	if v != nil {
+		_u.SetLastQueryTime(*v)
 	}
-	return fsuo
+	return _u
 }
 
 // ClearLastQueryTime clears the value of the "last_query_time" field.
-func (fsuo *FavoriteServerUpdateOne) ClearLastQueryTime() *FavoriteServerUpdateOne {
-	fsuo.mutation.ClearLastQueryTime()
-	return fsuo
+func (_u *FavoriteServerUpdateOne) ClearLastQueryTime() *FavoriteServerUpdateOne {
+	_u.mutation.ClearLastQueryTime()
+	return _u
 }
 
 // SetRank sets the "rank" field.
-func (fsuo *FavoriteServerUpdateOne) SetRank(i int) *FavoriteServerUpdateOne {
-	fsuo.mutation.ResetRank()
-	fsuo.mutation.SetRank(i)
-	return fsuo
+func (_u *FavoriteServerUpdateOne) SetRank(v int) *FavoriteServerUpdateOne {
+	_u.mutation.ResetRank()
+	_u.mutation.SetRank(v)
+	return _u
 }
 
 // SetNillableRank sets the "rank" field if the given value is not nil.
-func (fsuo *FavoriteServerUpdateOne) SetNillableRank(i *int) *FavoriteServerUpdateOne {
-	if i != nil {
-		fsuo.SetRank(*i)
+func (_u *FavoriteServerUpdateOne) SetNillableRank(v *int) *FavoriteServerUpdateOne {
+	if v != nil {
+		_u.SetRank(*v)
 	}
-	return fsuo
+	return _u
 }
 
-// AddRank adds i to the "rank" field.
-func (fsuo *FavoriteServerUpdateOne) AddRank(i int) *FavoriteServerUpdateOne {
-	fsuo.mutation.AddRank(i)
-	return fsuo
+// AddRank adds value to the "rank" field.
+func (_u *FavoriteServerUpdateOne) AddRank(v int) *FavoriteServerUpdateOne {
+	_u.mutation.AddRank(v)
+	return _u
 }
 
 // AddTagIDs adds the "tags" edge to the Tag entity by IDs.
-func (fsuo *FavoriteServerUpdateOne) AddTagIDs(ids ...int) *FavoriteServerUpdateOne {
-	fsuo.mutation.AddTagIDs(ids...)
-	return fsuo
+func (_u *FavoriteServerUpdateOne) AddTagIDs(ids ...int) *FavoriteServerUpdateOne {
+	_u.mutation.AddTagIDs(ids...)
+	return _u
 }
 
 // AddTags adds the "tags" edges to the Tag entity.
-func (fsuo *FavoriteServerUpdateOne) AddTags(t ...*Tag) *FavoriteServerUpdateOne {
-	ids := make([]int, len(t))
-	for i := range t {
-		ids[i] = t[i].ID
+func (_u *FavoriteServerUpdateOne) AddTags(v ...*Tag) *FavoriteServerUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return fsuo.AddTagIDs(ids...)
+	return _u.AddTagIDs(ids...)
 }
 
 // Mutation returns the FavoriteServerMutation object of the builder.
-func (fsuo *FavoriteServerUpdateOne) Mutation() *FavoriteServerMutation {
-	return fsuo.mutation
+func (_u *FavoriteServerUpdateOne) Mutation() *FavoriteServerMutation {
+	return _u.mutation
 }
 
 // ClearTags clears all "tags" edges to the Tag entity.
-func (fsuo *FavoriteServerUpdateOne) ClearTags() *FavoriteServerUpdateOne {
-	fsuo.mutation.ClearTags()
-	return fsuo
+func (_u *FavoriteServerUpdateOne) ClearTags() *FavoriteServerUpdateOne {
+	_u.mutation.ClearTags()
+	return _u
 }
 
 // RemoveTagIDs removes the "tags" edge to Tag entities by IDs.
-func (fsuo *FavoriteServerUpdateOne) RemoveTagIDs(ids ...int) *FavoriteServerUpdateOne {
-	fsuo.mutation.RemoveTagIDs(ids...)
-	return fsuo
+func (_u *FavoriteServerUpdateOne) RemoveTagIDs(ids ...int) *FavoriteServerUpdateOne {
+	_u.mutation.RemoveTagIDs(ids...)
+	return _u
 }
 
 // RemoveTags removes "tags" edges to Tag entities.
-func (fsuo *FavoriteServerUpdateOne) RemoveTags(t ...*Tag) *FavoriteServerUpdateOne {
-	ids := make([]int, len(t))
-	for i := range t {
-		ids[i] = t[i].ID
+func (_u *FavoriteServerUpdateOne) RemoveTags(v ...*Tag) *FavoriteServerUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return fsuo.RemoveTagIDs(ids...)
+	return _u.RemoveTagIDs(ids...)
 }
 
 // Where appends a list predicates to the FavoriteServerUpdate builder.
-func (fsuo *FavoriteServerUpdateOne) Where(ps ...predicate.FavoriteServer) *FavoriteServerUpdateOne {
-	fsuo.mutation.Where(ps...)
-	return fsuo
+func (_u *FavoriteServerUpdateOne) Where(ps ...predicate.FavoriteServer) *FavoriteServerUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (fsuo *FavoriteServerUpdateOne) Select(field string, fields ...string) *FavoriteServerUpdateOne {
-	fsuo.fields = append([]string{field}, fields...)
-	return fsuo
+func (_u *FavoriteServerUpdateOne) Select(field string, fields ...string) *FavoriteServerUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated FavoriteServer entity.
-func (fsuo *FavoriteServerUpdateOne) Save(ctx context.Context) (*FavoriteServer, error) {
-	return withHooks(ctx, fsuo.sqlSave, fsuo.mutation, fsuo.hooks)
+func (_u *FavoriteServerUpdateOne) Save(ctx context.Context) (*FavoriteServer, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (fsuo *FavoriteServerUpdateOne) SaveX(ctx context.Context) *FavoriteServer {
-	node, err := fsuo.Save(ctx)
+func (_u *FavoriteServerUpdateOne) SaveX(ctx context.Context) *FavoriteServer {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -457,26 +457,26 @@ func (fsuo *FavoriteServerUpdateOne) SaveX(ctx context.Context) *FavoriteServer 
 }
 
 // Exec executes the query on the entity.
-func (fsuo *FavoriteServerUpdateOne) Exec(ctx context.Context) error {
-	_, err := fsuo.Save(ctx)
+func (_u *FavoriteServerUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (fsuo *FavoriteServerUpdateOne) ExecX(ctx context.Context) {
-	if err := fsuo.Exec(ctx); err != nil {
+func (_u *FavoriteServerUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (fsuo *FavoriteServerUpdateOne) sqlSave(ctx context.Context) (_node *FavoriteServer, err error) {
+func (_u *FavoriteServerUpdateOne) sqlSave(ctx context.Context) (_node *FavoriteServer, err error) {
 	_spec := sqlgraph.NewUpdateSpec(favoriteserver.Table, favoriteserver.Columns, sqlgraph.NewFieldSpec(favoriteserver.FieldID, field.TypeInt))
-	id, ok := fsuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "FavoriteServer.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := fsuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, favoriteserver.FieldID)
 		for _, f := range fields {
@@ -488,41 +488,41 @@ func (fsuo *FavoriteServerUpdateOne) sqlSave(ctx context.Context) (_node *Favori
 			}
 		}
 	}
-	if ps := fsuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := fsuo.mutation.Addr(); ok {
+	if value, ok := _u.mutation.Addr(); ok {
 		_spec.SetField(favoriteserver.FieldAddr, field.TypeString, value)
 	}
-	if value, ok := fsuo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(favoriteserver.FieldName, field.TypeString, value)
 	}
-	if fsuo.mutation.NameCleared() {
+	if _u.mutation.NameCleared() {
 		_spec.ClearField(favoriteserver.FieldName, field.TypeString)
 	}
-	if value, ok := fsuo.mutation.Desc(); ok {
+	if value, ok := _u.mutation.Desc(); ok {
 		_spec.SetField(favoriteserver.FieldDesc, field.TypeString, value)
 	}
-	if fsuo.mutation.DescCleared() {
+	if _u.mutation.DescCleared() {
 		_spec.ClearField(favoriteserver.FieldDesc, field.TypeString)
 	}
-	if value, ok := fsuo.mutation.LastQueryTime(); ok {
+	if value, ok := _u.mutation.LastQueryTime(); ok {
 		_spec.SetField(favoriteserver.FieldLastQueryTime, field.TypeTime, value)
 	}
-	if fsuo.mutation.LastQueryTimeCleared() {
+	if _u.mutation.LastQueryTimeCleared() {
 		_spec.ClearField(favoriteserver.FieldLastQueryTime, field.TypeTime)
 	}
-	if value, ok := fsuo.mutation.Rank(); ok {
+	if value, ok := _u.mutation.Rank(); ok {
 		_spec.SetField(favoriteserver.FieldRank, field.TypeInt, value)
 	}
-	if value, ok := fsuo.mutation.AddedRank(); ok {
+	if value, ok := _u.mutation.AddedRank(); ok {
 		_spec.AddField(favoriteserver.FieldRank, field.TypeInt, value)
 	}
-	if fsuo.mutation.TagsCleared() {
+	if _u.mutation.TagsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -535,7 +535,7 @@ func (fsuo *FavoriteServerUpdateOne) sqlSave(ctx context.Context) (_node *Favori
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := fsuo.mutation.RemovedTagsIDs(); len(nodes) > 0 && !fsuo.mutation.TagsCleared() {
+	if nodes := _u.mutation.RemovedTagsIDs(); len(nodes) > 0 && !_u.mutation.TagsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -551,7 +551,7 @@ func (fsuo *FavoriteServerUpdateOne) sqlSave(ctx context.Context) (_node *Favori
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := fsuo.mutation.TagsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.TagsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -567,10 +567,10 @@ func (fsuo *FavoriteServerUpdateOne) sqlSave(ctx context.Context) (_node *Favori
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &FavoriteServer{config: fsuo.config}
+	_node = &FavoriteServer{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, fsuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{favoriteserver.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -578,6 +578,6 @@ func (fsuo *FavoriteServerUpdateOne) sqlSave(ctx context.Context) (_node *Favori
 		}
 		return nil, err
 	}
-	fsuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

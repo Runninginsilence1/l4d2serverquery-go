@@ -20,56 +20,56 @@ type FavoriteServerDelete struct {
 }
 
 // Where appends a list predicates to the FavoriteServerDelete builder.
-func (fsd *FavoriteServerDelete) Where(ps ...predicate.FavoriteServer) *FavoriteServerDelete {
-	fsd.mutation.Where(ps...)
-	return fsd
+func (_d *FavoriteServerDelete) Where(ps ...predicate.FavoriteServer) *FavoriteServerDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (fsd *FavoriteServerDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, fsd.sqlExec, fsd.mutation, fsd.hooks)
+func (_d *FavoriteServerDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (fsd *FavoriteServerDelete) ExecX(ctx context.Context) int {
-	n, err := fsd.Exec(ctx)
+func (_d *FavoriteServerDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (fsd *FavoriteServerDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *FavoriteServerDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(favoriteserver.Table, sqlgraph.NewFieldSpec(favoriteserver.FieldID, field.TypeInt))
-	if ps := fsd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, fsd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	fsd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // FavoriteServerDeleteOne is the builder for deleting a single FavoriteServer entity.
 type FavoriteServerDeleteOne struct {
-	fsd *FavoriteServerDelete
+	_d *FavoriteServerDelete
 }
 
 // Where appends a list predicates to the FavoriteServerDelete builder.
-func (fsdo *FavoriteServerDeleteOne) Where(ps ...predicate.FavoriteServer) *FavoriteServerDeleteOne {
-	fsdo.fsd.mutation.Where(ps...)
-	return fsdo
+func (_d *FavoriteServerDeleteOne) Where(ps ...predicate.FavoriteServer) *FavoriteServerDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (fsdo *FavoriteServerDeleteOne) Exec(ctx context.Context) error {
-	n, err := fsdo.fsd.Exec(ctx)
+func (_d *FavoriteServerDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (fsdo *FavoriteServerDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (fsdo *FavoriteServerDeleteOne) ExecX(ctx context.Context) {
-	if err := fsdo.Exec(ctx); err != nil {
+func (_d *FavoriteServerDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

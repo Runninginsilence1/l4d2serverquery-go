@@ -22,96 +22,96 @@ type FavoriteServerCreate struct {
 }
 
 // SetAddr sets the "addr" field.
-func (fsc *FavoriteServerCreate) SetAddr(s string) *FavoriteServerCreate {
-	fsc.mutation.SetAddr(s)
-	return fsc
+func (_c *FavoriteServerCreate) SetAddr(v string) *FavoriteServerCreate {
+	_c.mutation.SetAddr(v)
+	return _c
 }
 
 // SetName sets the "name" field.
-func (fsc *FavoriteServerCreate) SetName(s string) *FavoriteServerCreate {
-	fsc.mutation.SetName(s)
-	return fsc
+func (_c *FavoriteServerCreate) SetName(v string) *FavoriteServerCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (fsc *FavoriteServerCreate) SetNillableName(s *string) *FavoriteServerCreate {
-	if s != nil {
-		fsc.SetName(*s)
+func (_c *FavoriteServerCreate) SetNillableName(v *string) *FavoriteServerCreate {
+	if v != nil {
+		_c.SetName(*v)
 	}
-	return fsc
+	return _c
 }
 
 // SetDesc sets the "desc" field.
-func (fsc *FavoriteServerCreate) SetDesc(s string) *FavoriteServerCreate {
-	fsc.mutation.SetDesc(s)
-	return fsc
+func (_c *FavoriteServerCreate) SetDesc(v string) *FavoriteServerCreate {
+	_c.mutation.SetDesc(v)
+	return _c
 }
 
 // SetNillableDesc sets the "desc" field if the given value is not nil.
-func (fsc *FavoriteServerCreate) SetNillableDesc(s *string) *FavoriteServerCreate {
-	if s != nil {
-		fsc.SetDesc(*s)
+func (_c *FavoriteServerCreate) SetNillableDesc(v *string) *FavoriteServerCreate {
+	if v != nil {
+		_c.SetDesc(*v)
 	}
-	return fsc
+	return _c
 }
 
 // SetLastQueryTime sets the "last_query_time" field.
-func (fsc *FavoriteServerCreate) SetLastQueryTime(t time.Time) *FavoriteServerCreate {
-	fsc.mutation.SetLastQueryTime(t)
-	return fsc
+func (_c *FavoriteServerCreate) SetLastQueryTime(v time.Time) *FavoriteServerCreate {
+	_c.mutation.SetLastQueryTime(v)
+	return _c
 }
 
 // SetNillableLastQueryTime sets the "last_query_time" field if the given value is not nil.
-func (fsc *FavoriteServerCreate) SetNillableLastQueryTime(t *time.Time) *FavoriteServerCreate {
-	if t != nil {
-		fsc.SetLastQueryTime(*t)
+func (_c *FavoriteServerCreate) SetNillableLastQueryTime(v *time.Time) *FavoriteServerCreate {
+	if v != nil {
+		_c.SetLastQueryTime(*v)
 	}
-	return fsc
+	return _c
 }
 
 // SetRank sets the "rank" field.
-func (fsc *FavoriteServerCreate) SetRank(i int) *FavoriteServerCreate {
-	fsc.mutation.SetRank(i)
-	return fsc
+func (_c *FavoriteServerCreate) SetRank(v int) *FavoriteServerCreate {
+	_c.mutation.SetRank(v)
+	return _c
 }
 
 // SetNillableRank sets the "rank" field if the given value is not nil.
-func (fsc *FavoriteServerCreate) SetNillableRank(i *int) *FavoriteServerCreate {
-	if i != nil {
-		fsc.SetRank(*i)
+func (_c *FavoriteServerCreate) SetNillableRank(v *int) *FavoriteServerCreate {
+	if v != nil {
+		_c.SetRank(*v)
 	}
-	return fsc
+	return _c
 }
 
 // AddTagIDs adds the "tags" edge to the Tag entity by IDs.
-func (fsc *FavoriteServerCreate) AddTagIDs(ids ...int) *FavoriteServerCreate {
-	fsc.mutation.AddTagIDs(ids...)
-	return fsc
+func (_c *FavoriteServerCreate) AddTagIDs(ids ...int) *FavoriteServerCreate {
+	_c.mutation.AddTagIDs(ids...)
+	return _c
 }
 
 // AddTags adds the "tags" edges to the Tag entity.
-func (fsc *FavoriteServerCreate) AddTags(t ...*Tag) *FavoriteServerCreate {
-	ids := make([]int, len(t))
-	for i := range t {
-		ids[i] = t[i].ID
+func (_c *FavoriteServerCreate) AddTags(v ...*Tag) *FavoriteServerCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return fsc.AddTagIDs(ids...)
+	return _c.AddTagIDs(ids...)
 }
 
 // Mutation returns the FavoriteServerMutation object of the builder.
-func (fsc *FavoriteServerCreate) Mutation() *FavoriteServerMutation {
-	return fsc.mutation
+func (_c *FavoriteServerCreate) Mutation() *FavoriteServerMutation {
+	return _c.mutation
 }
 
 // Save creates the FavoriteServer in the database.
-func (fsc *FavoriteServerCreate) Save(ctx context.Context) (*FavoriteServer, error) {
-	fsc.defaults()
-	return withHooks(ctx, fsc.sqlSave, fsc.mutation, fsc.hooks)
+func (_c *FavoriteServerCreate) Save(ctx context.Context) (*FavoriteServer, error) {
+	_c.defaults()
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (fsc *FavoriteServerCreate) SaveX(ctx context.Context) *FavoriteServer {
-	v, err := fsc.Save(ctx)
+func (_c *FavoriteServerCreate) SaveX(ctx context.Context) *FavoriteServer {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -119,43 +119,43 @@ func (fsc *FavoriteServerCreate) SaveX(ctx context.Context) *FavoriteServer {
 }
 
 // Exec executes the query.
-func (fsc *FavoriteServerCreate) Exec(ctx context.Context) error {
-	_, err := fsc.Save(ctx)
+func (_c *FavoriteServerCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (fsc *FavoriteServerCreate) ExecX(ctx context.Context) {
-	if err := fsc.Exec(ctx); err != nil {
+func (_c *FavoriteServerCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (fsc *FavoriteServerCreate) defaults() {
-	if _, ok := fsc.mutation.Rank(); !ok {
+func (_c *FavoriteServerCreate) defaults() {
+	if _, ok := _c.mutation.Rank(); !ok {
 		v := favoriteserver.DefaultRank
-		fsc.mutation.SetRank(v)
+		_c.mutation.SetRank(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (fsc *FavoriteServerCreate) check() error {
-	if _, ok := fsc.mutation.Addr(); !ok {
+func (_c *FavoriteServerCreate) check() error {
+	if _, ok := _c.mutation.Addr(); !ok {
 		return &ValidationError{Name: "addr", err: errors.New(`ent: missing required field "FavoriteServer.addr"`)}
 	}
-	if _, ok := fsc.mutation.Rank(); !ok {
+	if _, ok := _c.mutation.Rank(); !ok {
 		return &ValidationError{Name: "rank", err: errors.New(`ent: missing required field "FavoriteServer.rank"`)}
 	}
 	return nil
 }
 
-func (fsc *FavoriteServerCreate) sqlSave(ctx context.Context) (*FavoriteServer, error) {
-	if err := fsc.check(); err != nil {
+func (_c *FavoriteServerCreate) sqlSave(ctx context.Context) (*FavoriteServer, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := fsc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, fsc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -163,37 +163,37 @@ func (fsc *FavoriteServerCreate) sqlSave(ctx context.Context) (*FavoriteServer, 
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	fsc.mutation.id = &_node.ID
-	fsc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (fsc *FavoriteServerCreate) createSpec() (*FavoriteServer, *sqlgraph.CreateSpec) {
+func (_c *FavoriteServerCreate) createSpec() (*FavoriteServer, *sqlgraph.CreateSpec) {
 	var (
-		_node = &FavoriteServer{config: fsc.config}
+		_node = &FavoriteServer{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(favoriteserver.Table, sqlgraph.NewFieldSpec(favoriteserver.FieldID, field.TypeInt))
 	)
-	if value, ok := fsc.mutation.Addr(); ok {
+	if value, ok := _c.mutation.Addr(); ok {
 		_spec.SetField(favoriteserver.FieldAddr, field.TypeString, value)
 		_node.Addr = value
 	}
-	if value, ok := fsc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(favoriteserver.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := fsc.mutation.Desc(); ok {
+	if value, ok := _c.mutation.Desc(); ok {
 		_spec.SetField(favoriteserver.FieldDesc, field.TypeString, value)
 		_node.Desc = value
 	}
-	if value, ok := fsc.mutation.LastQueryTime(); ok {
+	if value, ok := _c.mutation.LastQueryTime(); ok {
 		_spec.SetField(favoriteserver.FieldLastQueryTime, field.TypeTime, value)
 		_node.LastQueryTime = value
 	}
-	if value, ok := fsc.mutation.Rank(); ok {
+	if value, ok := _c.mutation.Rank(); ok {
 		_spec.SetField(favoriteserver.FieldRank, field.TypeInt, value)
 		_node.Rank = value
 	}
-	if nodes := fsc.mutation.TagsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.TagsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
 			Inverse: true,
@@ -220,16 +220,16 @@ type FavoriteServerCreateBulk struct {
 }
 
 // Save creates the FavoriteServer entities in the database.
-func (fscb *FavoriteServerCreateBulk) Save(ctx context.Context) ([]*FavoriteServer, error) {
-	if fscb.err != nil {
-		return nil, fscb.err
+func (_c *FavoriteServerCreateBulk) Save(ctx context.Context) ([]*FavoriteServer, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(fscb.builders))
-	nodes := make([]*FavoriteServer, len(fscb.builders))
-	mutators := make([]Mutator, len(fscb.builders))
-	for i := range fscb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*FavoriteServer, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := fscb.builders[i]
+			builder := _c.builders[i]
 			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*FavoriteServerMutation)
@@ -243,11 +243,11 @@ func (fscb *FavoriteServerCreateBulk) Save(ctx context.Context) ([]*FavoriteServ
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, fscb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, fscb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -271,7 +271,7 @@ func (fscb *FavoriteServerCreateBulk) Save(ctx context.Context) ([]*FavoriteServ
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, fscb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -279,8 +279,8 @@ func (fscb *FavoriteServerCreateBulk) Save(ctx context.Context) ([]*FavoriteServ
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (fscb *FavoriteServerCreateBulk) SaveX(ctx context.Context) []*FavoriteServer {
-	v, err := fscb.Save(ctx)
+func (_c *FavoriteServerCreateBulk) SaveX(ctx context.Context) []*FavoriteServer {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -288,14 +288,14 @@ func (fscb *FavoriteServerCreateBulk) SaveX(ctx context.Context) []*FavoriteServ
 }
 
 // Exec executes the query.
-func (fscb *FavoriteServerCreateBulk) Exec(ctx context.Context) error {
-	_, err := fscb.Save(ctx)
+func (_c *FavoriteServerCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (fscb *FavoriteServerCreateBulk) ExecX(ctx context.Context) {
-	if err := fscb.Exec(ctx); err != nil {
+func (_c *FavoriteServerCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

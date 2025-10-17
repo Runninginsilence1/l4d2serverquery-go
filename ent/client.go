@@ -263,8 +263,8 @@ func (c *FavoriteServerClient) Update() *FavoriteServerUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *FavoriteServerClient) UpdateOne(fs *FavoriteServer) *FavoriteServerUpdateOne {
-	mutation := newFavoriteServerMutation(c.config, OpUpdateOne, withFavoriteServer(fs))
+func (c *FavoriteServerClient) UpdateOne(_m *FavoriteServer) *FavoriteServerUpdateOne {
+	mutation := newFavoriteServerMutation(c.config, OpUpdateOne, withFavoriteServer(_m))
 	return &FavoriteServerUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -281,8 +281,8 @@ func (c *FavoriteServerClient) Delete() *FavoriteServerDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *FavoriteServerClient) DeleteOne(fs *FavoriteServer) *FavoriteServerDeleteOne {
-	return c.DeleteOneID(fs.ID)
+func (c *FavoriteServerClient) DeleteOne(_m *FavoriteServer) *FavoriteServerDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -317,16 +317,16 @@ func (c *FavoriteServerClient) GetX(ctx context.Context, id int) *FavoriteServer
 }
 
 // QueryTags queries the tags edge of a FavoriteServer.
-func (c *FavoriteServerClient) QueryTags(fs *FavoriteServer) *TagQuery {
+func (c *FavoriteServerClient) QueryTags(_m *FavoriteServer) *TagQuery {
 	query := (&TagClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := fs.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(favoriteserver.Table, favoriteserver.FieldID, id),
 			sqlgraph.To(tag.Table, tag.FieldID),
 			sqlgraph.Edge(sqlgraph.M2M, true, favoriteserver.TagsTable, favoriteserver.TagsPrimaryKey...),
 		)
-		fromV = sqlgraph.Neighbors(fs.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -412,8 +412,8 @@ func (c *TagClient) Update() *TagUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *TagClient) UpdateOne(t *Tag) *TagUpdateOne {
-	mutation := newTagMutation(c.config, OpUpdateOne, withTag(t))
+func (c *TagClient) UpdateOne(_m *Tag) *TagUpdateOne {
+	mutation := newTagMutation(c.config, OpUpdateOne, withTag(_m))
 	return &TagUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -430,8 +430,8 @@ func (c *TagClient) Delete() *TagDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *TagClient) DeleteOne(t *Tag) *TagDeleteOne {
-	return c.DeleteOneID(t.ID)
+func (c *TagClient) DeleteOne(_m *Tag) *TagDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -466,16 +466,16 @@ func (c *TagClient) GetX(ctx context.Context, id int) *Tag {
 }
 
 // QueryServers queries the servers edge of a Tag.
-func (c *TagClient) QueryServers(t *Tag) *FavoriteServerQuery {
+func (c *TagClient) QueryServers(_m *Tag) *FavoriteServerQuery {
 	query := (&FavoriteServerClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := t.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(tag.Table, tag.FieldID, id),
 			sqlgraph.To(favoriteserver.Table, favoriteserver.FieldID),
 			sqlgraph.Edge(sqlgraph.M2M, false, tag.ServersTable, tag.ServersPrimaryKey...),
 		)
-		fromV = sqlgraph.Neighbors(t.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query

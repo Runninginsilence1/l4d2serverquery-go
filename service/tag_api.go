@@ -54,3 +54,18 @@ func AddTag(name string, rank int) error {
 	_, err := client.Tag.Create().SetName(name).SetRank(rank).Save(ctx)
 	return err
 }
+
+func CreateTag(name string, rank int) (*ent.Tag, error) {
+	ctx := context.Background()
+	client := Client()
+
+	tag, err := client.Tag.Create().SetName(name).SetRank(rank).Save(ctx)
+	return tag, err
+}
+
+func DeleteTag(id int) error {
+	ctx := context.Background()
+	client := Client()
+
+	return client.Tag.DeleteOneID(id).Exec(ctx)
+}

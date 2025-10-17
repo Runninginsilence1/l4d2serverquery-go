@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"l4d2serverquery-go/dto"
+	"l4d2serverquery-go/logger"
 	"l4d2serverquery-go/pkg/steamquery"
 
 	"github.com/duke-git/lancet/v2/formatter"
@@ -35,14 +36,52 @@ func Router() *gin.Engine {
 		c.String(http.StatusOK, "health check")
 	})
 
-	r.GET("tags", func(c *gin.Context) {
-		tags, err := service.Tags()
-		if err != nil {
-			c.String(500, err.Error())
-			return
-		}
-		c.JSON(http.StatusOK, tags)
-	})
+	{
+		r.GET("tags", func(c *gin.Context) {
+			tags, err := service.Tags()
+			if err != nil {
+				c.String(500, err.Error())
+				return
+			}
+			c.JSON(http.StatusOK, tags)
+		})
+
+		r.POST("tags", func(c *gin.Context) {
+			type CreateTagRequest struct {
+				Name string `json:"name" binding:"required"`
+				Rank int    `json:"rank"`
+			}
+
+			var req CreateTagRequest
+			if err := c.ShouldBindJSON(&req); err != nil {
+				c.String(http.StatusBadRequest, err.Error())
+				return
+			}
+
+			tag, err := service.CreateTag(req.Name, req.Rank)
+			if err != nil {
+				c.String(http.StatusInternalServerError, err.Error())
+				return
+			}
+
+			c.JSON(http.StatusOK, dto.Tag{
+				ID:   tag.ID,
+				Name: tag.Name,
+			})
+		})
+
+		r.DELETE("tags/:id", func(c *gin.Context) {
+			id := cast.ToInt(c.Param("id"))
+
+			err := service.DeleteTag(id)
+			if err != nil {
+				c.String(http.StatusNotFound, err.Error())
+				return
+			}
+
+			c.Status(http.StatusOK)
+		})
+	}
 
 	// 获取数据库中的所有服务器信息并排序
 	r.POST("serverList/v2", func(c *gin.Context) {
@@ -105,7 +144,6 @@ func Router() *gin.Engine {
 
 	r.DELETE("/serverDelete/:id", func(c *gin.Context) {
 		id := cast.ToInt(c.Param("id"))
-
 		err := service.DeleteServerById(id)
 		if err != nil {
 			c.Status(404)
@@ -114,12 +152,12 @@ func Router() *gin.Engine {
 		c.Status(200)
 	})
 
-	r.GET("/debug/groupByTag", func(c *gin.Context) {
+	r.GET("/groupByTag", func(c *gin.Context) {
+		logger.Log.Info("开始给服务器分类")
 		if err := service.GroupServers(); err != nil {
 			c.JSON(500, err.Error())
 			return
 		}
-
 		c.Status(200)
 	})
 
@@ -138,7 +176,7 @@ func Router() *gin.Engine {
 		pageSize := c.DefaultQuery("pageSize", "10")
 		serverName := c.DefaultQuery("serverName", "药抗")
 
-		servers := steamquery.QueryMasterServer(
+		servers := steamquery.QuerySteamServerBrowswerApi(
 			serverName,
 			cast.ToInt(page),
 			cast.ToInt(pageSize),

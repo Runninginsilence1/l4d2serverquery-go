@@ -71,7 +71,7 @@ func (*FavoriteServer) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the FavoriteServer fields.
-func (fs *FavoriteServer) assignValues(columns []string, values []any) error {
+func (_m *FavoriteServer) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -82,39 +82,39 @@ func (fs *FavoriteServer) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			fs.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case favoriteserver.FieldAddr:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field addr", values[i])
 			} else if value.Valid {
-				fs.Addr = value.String
+				_m.Addr = value.String
 			}
 		case favoriteserver.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				fs.Name = value.String
+				_m.Name = value.String
 			}
 		case favoriteserver.FieldDesc:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field desc", values[i])
 			} else if value.Valid {
-				fs.Desc = value.String
+				_m.Desc = value.String
 			}
 		case favoriteserver.FieldLastQueryTime:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field last_query_time", values[i])
 			} else if value.Valid {
-				fs.LastQueryTime = value.Time
+				_m.LastQueryTime = value.Time
 			}
 		case favoriteserver.FieldRank:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field rank", values[i])
 			} else if value.Valid {
-				fs.Rank = int(value.Int64)
+				_m.Rank = int(value.Int64)
 			}
 		default:
-			fs.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -122,52 +122,52 @@ func (fs *FavoriteServer) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the FavoriteServer.
 // This includes values selected through modifiers, order, etc.
-func (fs *FavoriteServer) Value(name string) (ent.Value, error) {
-	return fs.selectValues.Get(name)
+func (_m *FavoriteServer) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryTags queries the "tags" edge of the FavoriteServer entity.
-func (fs *FavoriteServer) QueryTags() *TagQuery {
-	return NewFavoriteServerClient(fs.config).QueryTags(fs)
+func (_m *FavoriteServer) QueryTags() *TagQuery {
+	return NewFavoriteServerClient(_m.config).QueryTags(_m)
 }
 
 // Update returns a builder for updating this FavoriteServer.
 // Note that you need to call FavoriteServer.Unwrap() before calling this method if this FavoriteServer
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (fs *FavoriteServer) Update() *FavoriteServerUpdateOne {
-	return NewFavoriteServerClient(fs.config).UpdateOne(fs)
+func (_m *FavoriteServer) Update() *FavoriteServerUpdateOne {
+	return NewFavoriteServerClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the FavoriteServer entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (fs *FavoriteServer) Unwrap() *FavoriteServer {
-	_tx, ok := fs.config.driver.(*txDriver)
+func (_m *FavoriteServer) Unwrap() *FavoriteServer {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: FavoriteServer is not a transactional entity")
 	}
-	fs.config.driver = _tx.drv
-	return fs
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (fs *FavoriteServer) String() string {
+func (_m *FavoriteServer) String() string {
 	var builder strings.Builder
 	builder.WriteString("FavoriteServer(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", fs.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("addr=")
-	builder.WriteString(fs.Addr)
+	builder.WriteString(_m.Addr)
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(fs.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("desc=")
-	builder.WriteString(fs.Desc)
+	builder.WriteString(_m.Desc)
 	builder.WriteString(", ")
 	builder.WriteString("last_query_time=")
-	builder.WriteString(fs.LastQueryTime.Format(time.ANSIC))
+	builder.WriteString(_m.LastQueryTime.Format(time.ANSIC))
 	builder.WriteString(", ")
 	builder.WriteString("rank=")
-	builder.WriteString(fmt.Sprintf("%v", fs.Rank))
+	builder.WriteString(fmt.Sprintf("%v", _m.Rank))
 	builder.WriteByte(')')
 	return builder.String()
 }
