@@ -81,6 +81,42 @@ func Router() *gin.Engine {
 
 			c.Status(http.StatusOK)
 		})
+
+		// 绑定服务器标签
+		r.POST("server/:serverId/tags", func(c *gin.Context) {
+			serverID := cast.ToInt(c.Param("serverId"))
+
+			type BindTagsRequest struct {
+				TagIDs []int `json:"tagIds" binding:"required"`
+			}
+
+			var req BindTagsRequest
+			if err := c.ShouldBindJSON(&req); err != nil {
+				c.String(http.StatusBadRequest, err.Error())
+				return
+			}
+
+			err := service.BindServerTags(serverID, req.TagIDs)
+			if err != nil {
+				c.String(http.StatusInternalServerError, err.Error())
+				return
+			}
+
+			c.Status(http.StatusOK)
+		})
+
+		// 获取服务器标签
+		r.GET("server/:serverId/tags", func(c *gin.Context) {
+			serverID := cast.ToInt(c.Param("serverId"))
+
+			tags, err := service.GetServerTags(serverID)
+			if err != nil {
+				c.String(http.StatusNotFound, err.Error())
+				return
+			}
+
+			c.JSON(http.StatusOK, tags)
+		})
 	}
 
 	// 获取数据库中的所有服务器信息并排序
@@ -88,18 +124,20 @@ func Router() *gin.Engine {
 		body, _ := io.ReadAll(c.Request.Body)
 		tagIDRes := gjson.GetBytes(body, "tags").Array()
 		name := gjson.GetBytes(body, "name").String()
+		minPlayers := int(gjson.GetBytes(body, "minPlayers").Int())
+		maxPlayers := int(gjson.GetBytes(body, "maxPlayers").Int())
+
 		tagIDs := slice.Map(
 			tagIDRes,
 			func(_ int, item gjson.Result) int {
 				return int(item.Int())
 			},
 		)
-		servers, err := service.QueryServers(tagIDs, name)
+		servers, err := service.QueryServers(tagIDs, name, minPlayers, maxPlayers)
 		if err != nil {
 			c.String(500, err.Error())
 			return
 		}
-		fmt.Println(servers)
 		c.JSON(http.StatusOK, servers)
 	})
 

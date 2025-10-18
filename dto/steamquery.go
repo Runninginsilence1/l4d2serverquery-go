@@ -19,4 +19,5 @@ type Server struct {
 	MaxPlayers          int    `json:"maxPlayers"`
 	LastQueryTimeString string `json:"lastQueryTimeString"`
 	Rank                int    `json:"rank"`
+	Tags                []Tag  `json:"tags"`
 }

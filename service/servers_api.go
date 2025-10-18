@@ -83,9 +83,9 @@ func PatchServer(id int, item dto.Server) error {
 	return err
 }
 
-func QueryServers(tagIds []int, name string) ([]dto.Server, error) {
+func QueryServers(tagIds []int, name string, minPlayers int, maxPlayers int) ([]dto.Server, error) {
 	name = strings.TrimSpace(name)
-	logger.Log.Info("QueryServers arg:", "name", lo.Ternary(name == "", "empty", name))
+	logger.Log.Info("QueryServers arg:", "name", lo.Ternary(name == "", "is empty", name), "minPlayers", minPlayers, "maxPlayers", maxPlayers)
 	result, err, _ := singleflight.Sf().Do("servers", func() (interface{}, error) {
 		var dtos []dto.Server
 		wg := conc.NewWaitGroup()
@@ -112,7 +112,7 @@ func QueryServers(tagIds []int, name string) ([]dto.Server, error) {
 			return nil, err
 		}
 
-		fmt.Printf("共查询到%v个结果! 即将对他们进行测试连接...\n", len(all))
+		logger.Log.Infof("共查询到%v个结果! 即将对他们进行测试连接...\n", len(all))
 
 		all = slice.UniqueBy(all, func(item *ent.FavoriteServer) string {
 			return item.Addr
@@ -139,6 +139,27 @@ func QueryServers(tagIds []int, name string) ([]dto.Server, error) {
 		if dtos == nil {
 			dtos = make([]dto.Server, 0)
 		}
+
+		// 根据在线玩家数量范围进行过滤
+		if minPlayers > 0 || maxPlayers > 0 {
+			dtos = lo.Filter(dtos, func(server dto.Server, _ int) bool {
+				// 如果只设置了最小值
+				if minPlayers > 0 && maxPlayers == 0 {
+					return server.OnlinePlayers >= minPlayers
+				}
+				// 如果只设置了最大值
+				if minPlayers == 0 && maxPlayers > 0 {
+					return server.OnlinePlayers <= maxPlayers
+				}
+				// 如果同时设置了最小值和最大值
+				if minPlayers > 0 && maxPlayers > 0 {
+					return server.OnlinePlayers >= minPlayers && server.OnlinePlayers <= maxPlayers
+				}
+				return true
+			})
+			logger.Log.Infof("根据玩家数量范围过滤后，剩余%v个服务器\n", len(dtos))
+		}
+
 		logger.Log.Info("所有服务器测试成功")
 		slice.SortBy(dtos, func(a, b dto.Server) bool {
 			priorityA := 0
@@ -164,13 +185,13 @@ func QuerySingleServer(serverID int) (any, error) {
 		client := Client()
 		ctx := context.Background()
 
-		server, err := client.FavoriteServer.Query().Where(favoriteserver.ID(serverID)).Only(ctx)
+		server, err := client.FavoriteServer.Query().Where(favoriteserver.ID(serverID)).WithTags().Only(ctx)
 
 		if err != nil {
 			return nil, err
 		}
 
-		fmt.Println("成功查询到指定ID的服务器")
+		logger.Log.Info("成功查询到指定ID的服务器")
 
 		info, err := Query(server.Addr)
 		if err != nil {
@@ -209,6 +230,20 @@ func newServerDto(item *ent.FavoriteServer, info L4d2SeverInfo) dto.Server {
 	} else {
 		r.LastQueryTimeString = item.LastQueryTime.Format("2006-01-02 15:04:05")
 	}
+
+	// 添加标签信息
+	tags := item.Edges.Tags
+	if tags == nil {
+		r.Tags = make([]dto.Tag, 0)
+	} else {
+		r.Tags = slice.Map(tags, func(index int, t *ent.Tag) dto.Tag {
+			return dto.Tag{
+				ID:   t.ID,
+				Name: t.Name,
+			}
+		})
+	}
+
 	return r
 }
 
